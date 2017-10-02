@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        //TODO: Register method to check for activate blocked users when ban is expired
+        //TODO: Implement cronjob for backing up the database.
     }
 
     /**

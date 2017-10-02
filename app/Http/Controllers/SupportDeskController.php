@@ -54,8 +54,6 @@ class SupportDeskController extends Controller
     {
         return view('support-desk.index', [
             'assignedTickets'    => $this->supportDesk->assignedTickets(auth()->user()->id),
-            'priorities' => $this->priorities,
-            'categories' => $this->categories,
         ]); 
     }
 }

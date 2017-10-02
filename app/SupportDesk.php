@@ -17,10 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $created_at     The ticket when the ticket has been created.
  * @property \Carbon\Carbon $updated_at     The timestamp when the ticket last when updated.
  * 
- * @property-read //TODO Document author relation
- * @property-read //TODO Document assignee relation
- * @property-read //TODO Document category relation
- * @property-read //TODO Document status relation
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\User[]          $author
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\User[]          $assignee
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Categories[]    $category
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Statusses[]     $status
  */
 class SupportDesk extends Model
 {
@@ -34,39 +34,47 @@ class SupportDesk extends Model
      * 
      * @return array
      */
-    protected $fillable = ['author_id', 'assignee_id', 'category_id', 'subject', 'description'];
+    protected $fillable = ['author_id', 'status_id', 'assignee_id', 'category_id', 'subject', 'description'];
 
     /**
-     * @todo: docblock
+     * Data relation for the support ticket author.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function author() 
     {
-        // TODO: Build up database relation
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     /**
-     * @todo docblock
+     * Data relation for the assignee.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function assignee() 
     {
-        //? ->withDefault(); nodig omdat bij de creatie soms geen assignee word meegegeven. 
-        // TODO: Build up database relation
+        return $this->belongsTo(User::class, 'assignee_id')
+            ->withDefault(['name' => 'Niemand']);
     }
 
     /**
-     * @todo docblock
+     * Data relation for the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category() 
     {
-        //? ->withdefault(); nodig omdat bij de creatie soms geen category word meegegeven.
-        // TODO: Build up database relation.
+        return $this->belongsTo(Categories::class, 'category_id')
+            ->withDefault(['name' => 'Geen']);
     }
 
     /**
-     * @todo docblock
+     * Data relation for the support ticket status.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function status()
     {
-        // TODO: Build up database relation.
+        return $this->belongsTo(Statusses::class, 'status_id');
     }
 }

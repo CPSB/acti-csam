@@ -32,9 +32,9 @@ class SupportDeskController extends Controller
      */
     public function __construct(
         SupportDeskRepository   $supportDesk, 
-        PriorityRepository      $priorities, //! Repository NOT created.
-        CategoryRepository      $categories, //! Repository NOT created.
-        StatusRepository        $statusses   //! Repository NOT created.
+        PriorityRepository      $priorities, 
+        CategoryRepository      $categories, 
+        StatusRepository        $statusses
     ) {
         //! $this->middleware('auth');               // TODO: Implement and register middleware
         //! $this->middleware('forbid-banned-user'); // TODO: Implement and register middleware
@@ -48,14 +48,14 @@ class SupportDeskController extends Controller
     /**
      * Get the support-desk dashboard. 
      *
-     * @return View
+     * @return
      */
-    public function index(): View
+    public function index()
     {
         return view('support-desk.index', [
-            'tickets'    => $this->supportDesk->baseEntity(),
-            'priorities' => $this->priorities->baseEntity(),
-            'categories' => $this->categories->baseEntity(),
+            'tickets'    => $this->supportDesk,
+            'priorities' => $this->priorities,
+            'categories' => $this->categories,
         ]); 
     }
 }

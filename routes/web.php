@@ -15,4 +15,6 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 // Support desk routes 
-Route::get('/support/index', 'SupportdeskController@index')->name('support.index');
+Route::get('/support/index',     'SupportdeskController@index')->name('support.index');
+Route::get('/support/show/{id}', 'SupportdeskController@show')->name('support.show');
+Route::get('/support/create',    'SupportDeskController@create')->name('support.create');

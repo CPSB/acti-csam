@@ -10,7 +10,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <ul class="nav nav-pills">
+                        <ul class="nav nav-pills" role="tablist" id="supportTabs">
                             <li role="presentation" class="active">
                                 <a href="#assigned" aria-controls="assigned" role="tab" data-toggle="tab">
                                     Assigned Tickets <span class="badge">{{ $assignedTickets->count() }}</span>
@@ -52,8 +52,23 @@
                     <div role="tabpanel" class="tab-pane fade in"        id="active">     @include('support-desk.active-tickets')    </div>
                     <div role="tabpanel" class="tab-pane fade in"        id="completed">  @include('support-desk.completed-tickets') </div>
                 </div>
-            </div> {{-- /Menu panels --}}            
-
+            </div> {{-- /Menu panels --}}
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function() {
+            $('a[data-toggle="tab"]').on('click', function(e) {
+                window.localStorage.setItem('activeTab', $(e.target).attr('href'));
+            });
+
+            var activeTab = window.localStorage.getItem('activeTab');
+            if (activeTab) {
+                $('#supportTabs a[href="' + activeTab + '"]').tab('show');
+                window.localStorage.removeItem("activeTab");
+            }
+        });
+    </script>
+@endpush

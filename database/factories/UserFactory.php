@@ -24,12 +24,21 @@ $factory->define(ActivismeBE\User::class, function (Faker $faker) {
     ];
 });
 
+$factory->define(ActivismeBE\Statusses::class, function (Faker $faker) {
+    return [
+        'author_id'     => function () { return factory(ActivismeBE\User::class)->create(); },
+        'color'         => $faker->hexColor,
+        'name'          => $faker->name,
+        'description'   => $faker->paragraph
+    ];
+});
+
 $factory->define(ActivismeBE\SupportDesk::class, function (Faker $faker) {
     return [
-        'author_id'     => function () { factory(ActivismeBE\User::class)->create(); },
-        'assignee_id'   => function () { factory(ActivismeBE\User::class)->create(); },
-        'category_id'   => function () { factory(ActivismeBE\Categories::class)->create(); },
-        'status_id'     => function () { factory(ActivismeBE\Statusses::class)->create(); },
+        'author_id'     => function () { return factory(ActivismeBE\User::class)->create(); },
+        'assignee_id'   => function () { return factory(ActivismeBE\User::class)->create(); },
+        'category_id'   => function () { return factory(ActivismeBE\Categories::class)->create(); },
+        'status_id'     => function () { return factory(ActivismeBE\Statusses::class)->create(); },
         'subject'       => $faker->paragraph(1),
         'description'   => $faker->paragraphs(3)
     ];

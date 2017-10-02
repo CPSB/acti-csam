@@ -19,8 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Statusses extends Model
 {
-    // TODO: Build up testing factory.
-
     /**
      * Mass-assign fields for the database table.
      *

@@ -17,9 +17,20 @@ $factory->define(ActivismeBE\User::class, function (Faker $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'name'           => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(ActivismeBE\SupportDesk::class, function (Faker $faker) {
+    return [
+        'author_id'     => function () { factory(ActivismeBE\User::class)->create(); },
+        'assignee_id'   => function () { factory(ActivismeBE\User::class)->create(); },
+        'category_id'   => function () { factory(ActivismeBE\Categories::class)->create(); },
+        'status_id'     => function () { factory(ActivismeBE\Statusses::class)->create(); },
+        'subject'       => $faker->paragraph(1),
+        'description'   => $faker->paragraphs(3)
     ];
 });

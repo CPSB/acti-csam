@@ -27,8 +27,7 @@ class SupportDesk extends Model
     //! NOTE: Consider soft deletes for the tickets
     //!       A ticket can be deleted. But need to be soft deleted. Because an admin sometimes want to undo a ticket.   
 
-    // TODO: Build up the testing factory.
-
+    // TODO: Register the priority value and relation.
     /**
      * Mass-assign fields for the database table. 
      * 

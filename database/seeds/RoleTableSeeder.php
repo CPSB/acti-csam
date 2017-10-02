@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 /**
- * Class DatabaseSeeder
+ * Class RoleTableSeeder
  */
-class DatabaseSeeder extends Seeder
+class RoleTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RoleTableSeeder::class);
+        Role::create(['name' => 'admin']);
     }
 }

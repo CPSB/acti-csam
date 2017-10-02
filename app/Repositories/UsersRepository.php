@@ -23,4 +23,14 @@ class UsersRepository extends Repository
     {
         return User::class;
     }
+
+    /**
+     * Get all the users with the role admin.
+     *
+     * @return mixed
+     */
+    public function getAdmins()
+    {
+        return $this->model->role('admin')->get();
+    }
 }

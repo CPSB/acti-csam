@@ -83,7 +83,6 @@ class SupportDeskController extends Controller
     /**
      * The create view for new support tickets.
      *
-     * @todo    Only admins can pick tickets or can be assigned to tickets. ( ->getAdmins(); )
      * @return \Illuminate\Contracts\View\Factory|View
      */
     public function create(): View

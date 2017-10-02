@@ -29,12 +29,29 @@ class SupportDeskRepository extends Repository
      * Get all the support tickets for the authenticated user.
      *
      * @param  integer $userId The id from the authenticated user.
-     * @return $this
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function assignedTickets($userId)
     {
-        $relations = ['author', 'status', 'category'];
+        return $this->model->with(['author', 'status', 'category'])
+            ->where('assignee_id', $userId);
+    }
 
-        return $this->model->with($relations)->where('assignee_id', $userId);
+    /**
+     * Get the support tickets bsed on labels.
+     *
+     * @param  array $statusLabels The array from the status labels.
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function getTickets(array $statusLabels)
+    {
+        $statusWhere = function ($query) use ($statusLabels) {
+            foreach ($statusLabels as $key => $value) {
+                $query->where(['name' => $key[0]]);
+                $query->where(['name' => $key[1]]);
+            }
+        };
+
+        return $this->model->with(['author', 'status' => $statusWhere, 'category']);
     }
 }

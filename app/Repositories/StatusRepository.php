@@ -28,7 +28,7 @@ class StatusRepository extends Repository
     /**
      * Get all the statuses for the support tickets.
      *
-     * @return $this
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function getStatuses()
     {

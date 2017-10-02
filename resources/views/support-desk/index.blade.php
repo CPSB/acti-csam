@@ -19,13 +19,13 @@
 
                             <li role="presentation">
                                 <a href="#active" aria-controls="active" role="tab" data-toggle="tab">
-                                    Active Tickets <span class="badge">0</span>
+                                    Active Tickets <span class="badge">{{ $activeTickets->count() }}</span>
                                 </a>
                            </li>
 
                            <li role="presentation">
                                 <a href="#completed" aria-controls="completed" role="tab" data-toggle="tab">
-                                    Completed tickets <span class="badge">0</span>
+                                    Completed tickets <span class="badge">{{ $completedTickets->count() }}</span>
                                 </a>
                            </li> 
 

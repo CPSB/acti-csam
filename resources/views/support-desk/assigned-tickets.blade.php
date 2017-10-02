@@ -1,7 +1,10 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         Tickets assigned to {{ $user->name }}
-        @include('shared.support.panel-options')
+
+        <a href="{{ route('support.create') }}" class="pull-right btn btn-xs btn-primary">
+            <span class="fa fa-plus" aria-hidden="true"></span> Ticket toevoegen
+        </a>
     </div>
 
     <div class="panel-body">

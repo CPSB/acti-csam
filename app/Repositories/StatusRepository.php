@@ -24,4 +24,14 @@ class StatusRepository extends Repository
     {
         return Statusses::class;
     }
+
+    /**
+     * Get all the statuses for the support tickets.
+     *
+     * @return $this
+     */
+    public function getStatuses()
+    {
+        return $this->model->with(['author']);
+    }
 }

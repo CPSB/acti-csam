@@ -35,9 +35,21 @@
                                 </a>
     
                                 <ul class="dropdown-menu">
-                                    <li><a href="">Statuses</a></li>
-                                    <li><a href="">Priorities</a></li>
-                                    <li><a href="">Categories</a></li>
+                                    <li role="presentation">
+                                        <a href="#statuses" aria-controls="statuses" role="tab" data-toggle="tab">
+                                            Statuses
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#priority" aria-controls="priority" role="tab" data-toggle="tab">
+                                            Priorities
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#category" aria-controls="category" role="tab" data-toggle="tab">
+                                            Categories
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -48,9 +60,12 @@
 
             <div class="col-md-12"> {{-- Menu panels --}}
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="assigned">   @include('support-desk.assigned-tickets')  </div>
-                    <div role="tabpanel" class="tab-pane fade in"        id="active">     @include('support-desk.active-tickets')    </div>
-                    <div role="tabpanel" class="tab-pane fade in"        id="completed">  @include('support-desk.completed-tickets') </div>
+                    <div role="tabpanel" class="tab-pane fade in active" id="assigned">   @include('support-desk.assigned-tickets')     </div>
+                    <div role="tabpanel" class="tab-pane fade in"        id="active">     @include('support-desk.active-tickets')       </div>
+                    <div role="tabpanel" class="tab-pane fade in"        id="completed">  @include('support-desk.completed-tickets')    </div>
+                    <div role="tabpanel" class="tab-pane fade in"        id="statuses">   @include('support-desk.settings-statusses')   </div>
+                    <div role="tabpanel" class="tab-pane fade in"        id="priority">   @include('support-desk.settings-priority')    </div>
+                    <div role="tabpanel" class="tab-pane fade in"        id="category">   @include('support-desk.settings-category')    </div>
                 </div>
             </div> {{-- /Menu panels --}}
         </div>

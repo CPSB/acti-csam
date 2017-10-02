@@ -39,7 +39,7 @@
                                 </a>
                             </li>
 
-                            <li>
+                            <li @if (Request::is('support*')) class="active" @endif>
                                 <a href="{{ route('support.index') }}">
                                     Support tickets
                                 </a>
@@ -50,6 +50,14 @@
                     {{-- Right Side Of Navbar --}}
                     <ul class="nav navbar-nav navbar-right">
                         @if (auth()->check())
+                            <li>
+                                <a href="">
+                                    <span class="fa fa-bell" aria-hidden="true"></span>
+                                    {{-- TODO: Reister the notifications count in the view. --}}
+                                    {{-- TODO: Make in the SASS file a custom badge for the notifications count. --}}
+                                </a>
+                            </li>
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ $user->name }} <span class="caret"></span>

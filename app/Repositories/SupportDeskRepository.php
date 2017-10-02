@@ -35,7 +35,6 @@ class SupportDeskRepository extends Repository
     {
         $relations = ['author', 'status', 'category'];
 
-        return $this->model->with($relations)
-            ->where('assignee_id', $userId);
+        return $this->model->with($relations)->where('assignee_id', $userId);
     }
 }

@@ -1,6 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        Tickets assigned to {{-- TODO: replace this with the authencated username --}}
+        Tickets assigned to {{ $user->name }}
         @include('shared.support.panel-options')
     </div>
 

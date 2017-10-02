@@ -4,13 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> {{-- CSRF token --}}
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
+    {{-- Styles --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -42,19 +40,19 @@
                             </li>
 
                             <li>
-                                <a href="">
+                                <a href="{{ route('support.index') }}">
                                     Support tickets
                                 </a>
                             </li>
                         @endif
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
+                    {{-- Right Side Of Navbar --}}
                     <ul class="nav navbar-nav navbar-right">
                         @if (auth()->check())
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ $user->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
@@ -84,7 +82,7 @@
         @yield('content')
     </div>
 
-    <!-- Scripts -->
+    {{-- Scripts --}}
     <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
 </body>

@@ -2,6 +2,7 @@
 
 namespace ActivismeBE\Http\Controllers;
 
+use ActivismeBE\Http\Requests\StatusValidator;
 use ActivismeBE\Repositories\StatusRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -37,17 +38,18 @@ class StatusController extends Controller
      */
     public function create(): View
     {
-        // TODO: Implement view.
+        return view('statuses.create');
     }
 
     /**
      * Store a new status in the system.
      *
+     * @param  StatusValidator $input The user given input (validated).
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(): RedirectResponse
+    public function store(StatusValidator $input): RedirectResponse
     {
-        // TODO: Implement validator
+        // TODO: Implement validator -> validator needed to build up.
         // TODO: Implement store logic.
     }
 

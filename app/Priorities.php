@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Priorities extends Model
 {
-    // TODO: Build up the migration.
     // TODO: Build up testing factory.
 
     /**

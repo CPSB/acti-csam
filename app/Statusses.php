@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Statusses extends Model
 {
-    // TODO: Write migration.
     // TODO: Build up testing factory.
 
     /**

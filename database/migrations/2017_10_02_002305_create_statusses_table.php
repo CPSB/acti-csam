@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateStatussesTable
+ */
 class CreateStatussesTable extends Migration
 {
     /**
@@ -15,6 +18,10 @@ class CreateStatussesTable extends Migration
     {
         Schema::create('statusses', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('author_id');
+            $table->string('color', 10);
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
         });
     }

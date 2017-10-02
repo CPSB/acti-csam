@@ -19,8 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Categories extends Model
 {
-    // TODO: Build up the testing factory.
-
     /**
      * Mss-assign fields for the database table.
      *

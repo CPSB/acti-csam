@@ -62,8 +62,8 @@ class SupportDeskController extends Controller
     {
         return view('support-desk.index', [
             'assignedTickets'   => $this->supportDesk->assignedTickets(auth()->user()->id),
-            'completedTickets'  => $this->supportDesk->getTickets(['open', 'pending']),
-            'activeTickets'     => $this->supportDesk->getTickets(['fixed', 'closed']),
+            'completedTickets'  => $this->supportDesk->getTickets(['fixed', 'closed']),
+            'activeTickets'     => $this->supportDesk->getTickets(['open', 'pending']),
             'statuses'          => $this->statusses->getStatuses()
         ]); 
     }

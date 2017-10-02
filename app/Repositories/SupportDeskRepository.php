@@ -45,13 +45,11 @@ class SupportDeskRepository extends Repository
      */
     public function getTickets(array $statusLabels)
     {
-        $statusWhere = function ($query) use ($statusLabels) {
-            foreach ($statusLabels as $key => $value) {
-                $query->where(['name' => $key[0]]);
-                $query->where(['name' => $key[1]]);
-            }
+        $relations = ['author', 'category', 'status'];
+        $criteria  = function ($query) use ($statusLabels) {
+            $query->whereIn('name', array_values($statusLabels));
         };
 
-        return $this->model->with(['author', 'status' => $statusWhere, 'category']);
+        return $this->model->with($relations)->whereHas('status', $criteria);
     }
 }

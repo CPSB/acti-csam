@@ -13,7 +13,7 @@
                         <ul class="nav nav-pills">
                             <li role="presentation" class="active">
                                 <a href="#assigned" aria-controls="assigned" role="tab" data-toggle="tab">
-                                    Assigned Tickets <span class="badge">0</span>
+                                    Assigned Tickets <span class="badge">{{ $assignedTickets->count() }}</span>
                                 </a>
                             </li>
 

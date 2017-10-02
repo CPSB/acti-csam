@@ -36,11 +36,11 @@ class SupportDeskController extends Controller
         CategoryRepository      $categories, 
         StatusRepository        $statusses
     ) {
-        //! $this->middleware('auth');               // TODO: Implement and register middleware
+        $this->middleware('auth');
         //! $this->middleware('forbid-banned-user'); // TODO: Implement and register middleware
 
         $this->supportDesk = $supportDesk;
-        $this->piorities   = $priorities; 
+        $this->priorities  = $priorities;
         $this->categories  = $categories; 
         $this->statusses   = $statusses;
     }
@@ -53,7 +53,7 @@ class SupportDeskController extends Controller
     public function index()
     {
         return view('support-desk.index', [
-            'tickets'    => $this->supportDesk,
+            'assignedTickets'    => $this->supportDesk->assignedTickets(auth()->user()->id),
             'priorities' => $this->priorities,
             'categories' => $this->categories,
         ]); 

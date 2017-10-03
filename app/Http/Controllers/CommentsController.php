@@ -2,6 +2,7 @@
 
 namespace ActivismeBE\Http\Controllers;
 
+use ActivismeBE\Repositories\CommentsRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -11,8 +12,19 @@ use Illuminate\Http\Request;
  */
 class CommentsController extends Controller
 {
-    public function __construct()
+    private $commentsRepository; /** @var CommentsRepository $commentsRepository */
+
+    /**
+     * CommentsController constructor.
+     *
+     * @param  CommentsRepository $commentsRepository The abtraction layer between controller and ORM.
+     * @return void
+     */
+    public function __construct(CommentsRepository $commentsRepository)
     {
         $this->middleware('auth');
+        // this->middleware('forbid-banned-user'); // TODO: Build up dat register middleware.
+
+        $this->commentsRepository = $commentsRepository;
     }
 }

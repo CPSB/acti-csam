@@ -76,7 +76,7 @@ class SupportDeskController extends Controller
      */
     public function show($ticketId): View
     {
-        // TODO: Build up and register the view.
+        // TODO: Build up and use the comments relation.
 
         $ticket = $this->supportDesk->find($ticketId) ?: abort(404);
         return view('support-desk.show', compact('ticket'));

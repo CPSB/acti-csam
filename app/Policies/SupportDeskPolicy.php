@@ -20,8 +20,8 @@ class SupportDeskPolicy
     /**
      * Determine whether the user can create comments.
      *
-     * @param SupportDesk $ticket
-     * @return mixed
+     * @param  SupportDesk $ticket
+     * @return boolean
      */
     public function store(User $user, SupportDesk $ticket)
     {
@@ -31,21 +31,21 @@ class SupportDeskPolicy
     /**
      * Determine whether the user can update the comments.
      *
-     * @param  \ActivismeBE\User  $user
-     * @param  \ActivismeBE\Comments  $comments
-     * @return mixed
+     * @param  \ActivismeBE\User         $user
+     * @param  \ActivismeBE\SupportDesk  $ticket
+     * @return boolean
      */
-    public function update(User $user, SupportDesk $comments)
+    public function update(User $user, SupportDesk $ticket)
     {
-        //
+        return $user->hasRole('admin');
     }
 
     /**
      * Determine whether the user can delete the comments.
      *
-     * @param  \ActivismeBE\User  $user
+     * @param  \ActivismeBE\User        $user
      * @param  \ActivismeBE\SupportDesk $ticket
-     * @return mixed
+     * @return boolean
      */
     public function delete(User $user, SupportDesk $ticket)
     {

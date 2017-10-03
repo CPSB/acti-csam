@@ -98,7 +98,7 @@
 
                                 {{  $comments->render() }}
 
-                                <li class="clearfix">
+                                <li class="clearfix"> {{-- reaction box --}}
                                     <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar img-responsive" alt="">
                                     <div class="post-comments">
                                         <p class="meta">{{ $user->name }}:</p>
@@ -123,7 +123,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                </li>
+                                </li> {{-- /Reaction box --}}
 
                             </ul>
                         </div>

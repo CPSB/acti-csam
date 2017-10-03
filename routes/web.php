@@ -18,3 +18,6 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/support/index',     'SupportdeskController@index')->name('support.index');
 Route::get('/support/show/{id}', 'SupportdeskController@show')->name('support.show');
 Route::get('/support/create',    'SupportDeskController@create')->name('support.create');
+
+// Comment routes.
+Route::post('/comments/store/{id}', 'CommentsController@store')->name('comments.store');

@@ -2,9 +2,16 @@
 
 namespace ActivismeBE\Providers;
 
+use ActivismeBE\Policies\SupportDeskPolicy;
+use ActivismeBE\SupportDesk;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+/**
+ * Class AuthServiceProvider
+ *
+ * @package ActivismeBE\Providers
+ */
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -13,7 +20,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'ActivismeBE\Model' => 'ActivismeBE\Policies\ModelPolicy',
+        SupportDesk::class => SupportDeskPolicy::class
     ];
 
     /**
@@ -24,7 +31,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
     }
 }

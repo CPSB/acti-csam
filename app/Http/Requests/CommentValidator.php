@@ -13,7 +13,7 @@ class CommentValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,6 @@ class CommentValidator extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return ['message' => 'required'];
     }
 }

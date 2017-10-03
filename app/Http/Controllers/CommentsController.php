@@ -2,33 +2,39 @@
 
 namespace ActivismeBE\Http\Controllers;
 
+use Gate;
 use ActivismeBE\Http\Requests\CommentValidator;
-use ActivismeBE\Repositories\CommentsRepository;
+use ActivismeBE\Repositories\{SupportDeskRepository, CommentsRepository};
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 /**
  * Class CommentsController
  *
+ * @author  Tim Joosten
+ * @license MIT LICENSE
  * @package ActivismeBE\Http\Controllers
  */
 class CommentsController extends Controller
 {
-    private $commentsRepository; /** @var CommentsRepository $commentsRepository */
+    private $commentsRepository; /** @var CommentsRepository    $commentsRepository */
+    private $ticketRepository;   /** @var SupportDeskRepository $ticketRepository   */
 
     /**
      * CommentsController constructor.
      *
-     * @param  CommentsRepository $commentsRepository The abtraction layer between controller and ORM.
+     * @param  CommentsRepository       $commentsRepository The abstraction layer between controller and ORM.
+     * @param  SupportDeskRepository    $ticketRepository   The abstraction layer between controller and ORM.
+     *
      * @return void
      */
-    public function __construct(CommentsRepository $commentsRepository)
+    public function __construct(CommentsRepository $commentsRepository, SupportDeskRepository $ticketRepository)
     {
         $this->middleware('auth');
         // this->middleware('forbid-banned-user'); // TODO: Build up dat register middleware.
 
         $this->commentsRepository = $commentsRepository;
-        $this->ticketsRepository  = $ticketRepository;
+        $this->ticketRepository   = $ticketRepository;
     }
 
     /**
@@ -40,11 +46,18 @@ class CommentsController extends Controller
      */
     public function store(CommentValidator $input, $ticketId): RedirectResponse
     {
-        if (! $this->ticketsRepository->find($ticketId)) {
-            flash("Wij konden geen support ticket vinden met de gegeven id.")->warning();
-            return redirect()->back(302);
+        $ticket = $this->ticketRepository->find($ticketId) ?: abort(404);
+
+        if (Gate::allows('store', $ticket)) { // The user is authorized for performing the action.
+            $input->merge(['author_id' => auth()->user()->id]);
+
+            if ($comment = $this->commentsRepository->create($input->except('_token'))) {
+                $ticket->comments()->attach($comment->id);
+                flash("Uw reactie is toegevoegd aan het ticket.")->success();
+            }
         }
 
+        flash("U hebt geen macheging om het ticket te bekijken.")->error();
         return redirect()->back(302);
     }
 }

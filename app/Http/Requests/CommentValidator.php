@@ -4,6 +4,11 @@ namespace ActivismeBE\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class CommentValidator
+ *
+ * @package ActivismeBE\Http\Requests
+ */
 class CommentValidator extends FormRequest
 {
     /**

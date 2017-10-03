@@ -14,9 +14,11 @@
                                 Edit
                             </a>
 
-                            <a href="" class="btn btn-xs btn-danger">
-                                Delete
-                            </a>
+                            @can('delete', $ticket)
+                                <a href="" class="btn btn-xs btn-danger">
+                                    <span class="fa fa-trash" aria-hidden="true"></span> Delete
+                                </a>
+                            @endcan
                         </div>
                     </div>
 
@@ -78,13 +80,13 @@
                                             <p class="meta"> 10 oct, 2017 <a href="#">Tim Joosten</a> says:
                                                 <span class="pull-right">
 
-                                                    @if ($user->id == $comment->author_id || $user->hasRole('Admin')) --}}
-                                                        <a class="btn btn-danger btn-xs" href="{{-- route('comments.delete', $comment) --}}">
+                                                    @can('delete', $comment)
+                                                        <a class="btn btn-danger btn-xs" href="{{ route('comments.delete', $comment) }}">
                                                             <small>
                                                                 <span class="fa fa-close" aria-hidden="true"></span> Delete
                                                             </small>
                                                         </a>
-                                                    @endif
+                                                    @endcan
                                                 </span>
                                             </p>
                                             <p>Test comment</p>

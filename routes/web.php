@@ -21,3 +21,4 @@ Route::get('/support/create',    'SupportDeskController@create')->name('support.
 
 // Comment routes.
 Route::post('/comments/store/{id}', 'CommentsController@store')->name('comments.store');
+Route::get('/comments/delete/{id}', 'CommentsController@destroy')->name('comments.delete');

@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $created_at The timestamp when the record has been created
  * @property \Carbon\Carbon $updated_at The timestamp when the record last has been updated.
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\User[] $author.
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\User[]          $author
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\SupportDesk[]   $tickets
  */
 class Comments extends Model
 {
@@ -32,5 +33,15 @@ class Comments extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    /**
+     * Get the tickets for the comment.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tickets()
+    {
+        return $this->belongsToMany(SupportDesk::class)->withTimestamps();
     }
 }

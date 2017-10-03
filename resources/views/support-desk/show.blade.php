@@ -76,19 +76,13 @@
                                             <p class="meta">
                                                 10 oct, 2017 <a href="#">Tim Joosten</a> says:
                                                 <span class="pull-right">
-                                                {{-- @if (auth()->user()->id == $comment->author_id || $user->hasRole('Admin')) --}}
-                                                        <a class="btn btn-warning btn-xs" href="{{-- route('comments.delete', $comment) --}}">
+                                                {{-- @if ($user->id == $comment->author_id || $user->hasRole('Admin')) --}}
+                                                        <a class="btn btn-danger btn-xs" href="{{-- route('comments.delete', $comment) --}}">
                                                         <small>
                                                             <span class="fa fa-close" aria-hidden="true"></span> Delete
                                                         </small>
                                                     </a>
                                                     {{-- @endif --}}
-
-                                                    <a class="btn btn-xs btn-danger" href="#" onclick="">
-                                                    <small>
-                                                        <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> Report
-                                                    </small>
-                                                </a>
                                             </span>
                                             </p>
                                             <p>Test comment</p>

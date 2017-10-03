@@ -77,7 +77,9 @@
                                         <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar img-responsive" alt="">
                                         <div class="post-comments">
 
-                                            <p class="meta"> 10 oct, 2017 <a href="#">Tim Joosten</a> says:
+                                            <p class="meta">
+                                                {{ $comment->created_at->diffForHumans()}} <a href="#">{{ $comment->author->name }}</a> says:
+
                                                 <span class="pull-right">
 
                                                     @can('delete', $comment)
@@ -89,7 +91,7 @@
                                                     @endcan
                                                 </span>
                                             </p>
-                                            <p>Test comment</p>
+                                            <p>{{ $comment->message }}</p>
                                         </div>
                                     </li>
                                 @endforeach
@@ -99,7 +101,7 @@
                                 <li class="clearfix">
                                     <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar img-responsive" alt="">
                                     <div class="post-comments">
-                                        <p class="meta">Tim Joosten:</p>
+                                        <p class="meta">{{ $user->name }}:</p>
 
                                         <form class="form-horizontal" method="POST" action="{{  route('comments.store', $ticket) }}">
                                             {{ csrf_field() }} {{-- CSRF form protection --}}

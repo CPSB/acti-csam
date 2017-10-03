@@ -1,0 +1,136 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong><code>#T{{ $ticket->id }}</code></strong>
+                        {{ ucfirst($ticket->subject) }}
+
+                        <div class="pull-right">
+                            <a href="" class="btn btn-primary btn-xs">
+                                Edit
+                            </a>
+
+                            <a href="" class="btn btn-xs btn-danger">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="col-md-3"><strong>Creator:</strong></div>
+                                        <div class="col-md-3">{{ $ticket->author->name }}</div>
+
+                                        <div class="col-md-3"><strong>Assignee:</strong></div>
+                                        <div class="col-md-3">{{ $ticket->assignee->name }}</div>
+
+                                        <div class="col-md-3"><strong>Status:</strong></div>
+                                        <div class="col-md-3">
+                                            <span style="color: {{ $ticket->status->color }};">
+                                                {{ $ticket->status->name }}
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-3"><strong>Category:</strong></div>
+                                        <div class="col-md-3">
+                                            <span style="color: {{ $ticket->category->color }};">
+                                                {{ $ticket->category->name }}
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-3"><strong>Priority:</strong></div>
+                                        <div class="col-md-3">{{-- Priority relation not defined. --}}</div>
+
+                                        <div class="col-md-3"><strong>Created:</strong></div>
+                                        <div class="col-md-3">{{ $ticket->created_at->diffForHumans() }}</div>
+
+                                        <div class="col-md-offset-6 col-md-3"><strong>Last Update:</strong></div>
+                                        <div class="col-md-3">{{ $ticket->updated_at->diffForHumans() }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12"> {{ $ticket->description }} </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="blog-comment">
+                            <ul class="comments">
+                                {{-- @foreach ($comments as $comment) --}}
+
+                                    <li class="clearfix">
+                                        <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar img-responsive" alt="">
+                                        <div class="post-comments">
+                                            <p class="meta">
+                                                10 oct, 2017 <a href="#">Tim Joosten</a> says:
+                                                <span class="pull-right">
+                                                {{-- @if (auth()->user()->id == $comment->author_id || $user->hasRole('Admin')) --}}
+                                                        <a class="btn btn-warning btn-xs" href="{{-- route('comments.delete', $comment) --}}">
+                                                        <small>
+                                                            <span class="fa fa-close" aria-hidden="true"></span> Delete
+                                                        </small>
+                                                    </a>
+                                                    {{-- @endif --}}
+
+                                                    <a class="btn btn-xs btn-danger" href="#" onclick="">
+                                                    <small>
+                                                        <span class="fa fa-exclamation-triangle" aria-hidden="true"></span> Report
+                                                    </small>
+                                                </a>
+                                            </span>
+                                            </p>
+                                            <p>Test comment</p>
+                                        </div>
+                                    </li>
+                                {{-- @endforeach --}}
+
+                                {{-- $comments->render() --}}
+
+                                <li class="clearfix">
+                                    <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar img-responsive" alt="">
+                                    <div class="post-comments">
+                                        <p class="meta">Tim Joosten:</p>
+
+                                        <form class="form-horizontal" method="POST" action="{{-- route('comments.store') --}}">
+                                            {{ csrf_field() }} {{-- CSRF form protection --}}
+
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <textarea style="resize: none;" name="comment" class="form-control" rows="3" placeholder="Uw reactie."></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <button type="submit" class="btn btn-sm btn-success">
+                                                        <span class="fa fa-check" aria-hidden="true"></span> Comment
+                                                    </button>
+                                                    <button type="reset" class="btn btn-sm btn-danger">
+                                                        <span class="fa fa-undo" aria-hidden="true"></span> Reset
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+@endsection

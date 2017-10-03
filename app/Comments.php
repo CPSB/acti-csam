@@ -1,0 +1,10 @@
+<?php
+
+namespace ActivismeBE;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Comments extends Model
+{
+    //
+}

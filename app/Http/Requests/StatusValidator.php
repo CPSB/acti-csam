@@ -4,6 +4,10 @@ namespace ActivismeBE\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class StatusValidator
+ * @package ActivismeBE\Http\Requests
+ */
 class StatusValidator extends FormRequest
 {
     /**
@@ -13,7 +17,7 @@ class StatusValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +28,9 @@ class StatusValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'          => 'required|unique:statusses',
+            'color'         => 'required',
+            'description'   => 'required'
         ];
     }
 }

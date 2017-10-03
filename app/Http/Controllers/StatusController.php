@@ -22,7 +22,7 @@ class StatusController extends Controller
      * @param  StatusRepository $statusRepository The abstraction layer for the statuses between controller and modal.
      * @return void
      */
-    public function __construct(StatusRepository$statusRepository)
+    public function __construct(StatusRepository $statusRepository)
     {
         $this->middleware('author');
         // $this->middleware('role:admin');         // TODO: Build up and register middleware.
@@ -44,24 +44,38 @@ class StatusController extends Controller
     /**
      * Store a new status in the system.
      *
+     * @todo register route.
+     *
      * @param  StatusValidator $input The user given input (validated).
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StatusValidator $input): RedirectResponse
     {
-        // TODO: Implement validator -> validator needed to build up.
-        // TODO: Implement store logic.
+        $input->merge(['author_id' => auth()->user()->id]);
+
+        if ($status = $this->statusRepository->create($input->except('_token'))) {
+            flash("De Status {$status->name} is opgeslagen in het systeem.")->success();
+        }
+
+        return redirect()->back(302);
     }
 
     /**
      * Delete a support ticket status out of the system.
+     *
+     * @todo register route.
      *
      * @param  integer $statusId The primary key from the status in the storage.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($statusId): RedirectResponse
     {
-        // TODO: Implementation delete logic.
-        // TODO: Build up notification to notifify when user is not the deleter.
+        $status = $this->statusRepository->find($statusId) ?: abort(404);
+
+        if ($this->statusRepository->delete($statusId)) {
+            flash("De status {$status->name} is verwijderd uit het systeem.")->success();
+        }
+
+        return redirect()->back(302);
     }
 }

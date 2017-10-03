@@ -77,9 +77,8 @@ class SupportDeskController extends Controller
     public function show($ticketId): View
     {
         // TODO: Build up and register the view.
-        // TODO: Register ->getTicket(); In the support repository.
 
-        $ticket = $this->supportDesk->getTicket($ticketId) ?: abort(404);
+        $ticket = $this->supportDesk->find($ticketId) ?: abort(404);
         return view('support-desk.show', compact('ticket'));
     }
 

@@ -12,6 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property integer            $id                 The primary key from the database row.
  * @property string             $name               The username column.
  * @property string             $email              The user his email address.
+ * @property string             $avatar             The path to the user image in the system.
  * @property string             $password           The password column from the user.
  * @property string             $remember_token     The remember_token from the user in the database.
  * @property \Carbon\Carbon     $created_at         The timestamp when the user is created.
@@ -26,7 +27,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'avatar', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.

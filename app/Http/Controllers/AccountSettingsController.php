@@ -6,6 +6,7 @@ use ActivismeBE\Http\Requests\{AccountInfoValidator, AccountSecurityValidator};
 use ActivismeBE\Repositories\UsersRepository;
 use Illuminate\Http\{Response, RedirectResponse};
 use Illuminate\View\View;
+use Intervention\Image\Facades\Image;
 
 /**
  * Class AccountSettingsController
@@ -72,7 +73,23 @@ class AccountSettingsController extends Controller
      */
     public function updateInfo(AccountInfoValidator $input): RedirectResponse
     {
-        if ($this->usersRepository->update($input->except('_token'), $this->user->id)) {
+        if ($input->hasFile('userImage')) {
+            $avatar = public_path(auth()->user()->avatar);
+
+            if (file_exists($avatar) && auth()->user()->avatar != 'avatars/default.jpg') {
+                unlink($avatar);
+            }
+
+            $image      = $input->file('userImage');
+            $filename   = time() . '.' . $image->getClientOriginalExtension();
+            $path       = public_path("avatars/{$filename}");
+
+
+            Image::make($image->getRealPath())->resize(160, 160)->save($path);
+            $input->merge(['avatar' => "avatars/{$filename}"]);
+        }
+
+        if ($this->usersRepository->update($input->except(['_token', 'userImage']), auth()->user()->id)) {
             flash("Jouw account informatie is aangepast.")->success();
         }
 

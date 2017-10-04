@@ -2,11 +2,9 @@
 
 namespace ActivismeBE\Http\Controllers;
 
-use ActivismeBE\Http\Requests\AccountSecurityValidator;
+use ActivismeBE\Http\Requests\{AccountInfoValidator, AccountSecurityValidator};
 use ActivismeBE\Repositories\UsersRepository;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\{Response, RedirectResponse};
 use Illuminate\View\View;
 
 /**
@@ -67,14 +65,17 @@ class AccountSettingsController extends Controller
     }
 
     /**
-     * Update the unser his information.
+     * Update the user his information.
      *
+     * @param  AccountInfoValidator $input The user given input (validated).
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateInfo(): RedirectResponse
+    public function updateInfo(AccountInfoValidator $input): RedirectResponse
     {
-        // TODO: Option to set an user avatar.
-        // TODO: Option to update the user information.
-        // TODO: Redirect the user back to the previous page.
+        if ($this->usersRepository->update($input->except('_token'), $this->user->id)) {
+            flash("Jouw account informatie is aangepast.")->success();
+        }
+
+        return redirect()->back(Response::HTTP_FOUND);
     }
 }

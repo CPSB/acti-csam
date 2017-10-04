@@ -85,4 +85,51 @@ class AccountSettingsTest extends TestCase
             ->assertStatus(302)
             ->assertSessionHasErrors();
     }
+
+    /**
+     * @test
+     * @covers \ActivismeBE\Http\Controllers\AccountSettingsController::updateInfo()
+     */
+    public function testUpdateInfoUnauthorized()
+    {
+        $input = ['name' => 'Jhon Doe', 'email' => 'example@domain.tld'];
+
+        $this->post(route('account.settings.info'), $input)
+            ->assertRedirect('/login');
+    }
+
+    /**
+     * @test
+     * @covers \ActivismeBE\Http\Controllers\AccountSettingsController::updateInfo()
+     */
+    public function testUpdateInfoSuccess()
+    {
+        $input = ['name' => 'Jhon Doe', 'email' => 'example@domain.tld'];
+        $user  = factory(User::class)->create();
+
+
+        $this->actingAs($user)
+            ->assertAuthenticatedAs($user)
+            ->post(route('account.settings.info'), $input)
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'flash_notification.0.message' => 'Jouw account informatie is aangepast.',
+                'flash_notification.0.level'   => 'success'
+            ]);
+    }
+
+    /**
+     * @test
+     * @covers \ActivismeBE\Http\Controllers\AccountSettingsController::updateSecurity()
+     */
+    public function testUpdateInfoValidationErrors()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->assertAuthenticatedAs($user)
+            ->post(route('account.settings.info'), [])
+            ->assertStatus(302)
+            ->assertSessionHasErrors();
+    }
 }

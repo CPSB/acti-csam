@@ -29,8 +29,6 @@ $(function() {
     var activeTab = window.localStorage.getItem('activeTab');
     if (activeTab) {
         $('#activeTabs a[href="' + activeTab + '"]').tab('show');
-
-        // Unsure if we can delete this.
         // window.localStorage.removeItem("activeTab");
     }
 });

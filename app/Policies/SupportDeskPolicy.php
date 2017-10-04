@@ -20,7 +20,7 @@ class SupportDeskPolicy
     /**
      * Determine whether the user can create comments.
      *
-     * @param  SupportDesk $ticket
+     * @param  \ActivismeBE\SupportDesk $ticket     The ticket model in the application.
      * @return boolean
      */
     public function store(User $user, SupportDesk $ticket)
@@ -31,8 +31,8 @@ class SupportDeskPolicy
     /**
      * Determine whether the user can update the comments.
      *
-     * @param  \ActivismeBE\User         $user
-     * @param  \ActivismeBE\SupportDesk  $ticket
+     * @param  \ActivismeBE\User         $user      The user model in the application.
+     * @param  \ActivismeBE\SupportDesk  $ticket    The ticket model in the application. 
      * @return boolean
      */
     public function update(User $user, SupportDesk $ticket)
@@ -43,8 +43,8 @@ class SupportDeskPolicy
     /**
      * Determine whether the user can delete the comments.
      *
-     * @param  \ActivismeBE\User        $user
-     * @param  \ActivismeBE\SupportDesk $ticket
+     * @param  \ActivismeBE\User        $user       The user model in the application.
+     * @param  \ActivismeBE\SupportDesk $ticket     The ticket model in the application.
      * @return boolean
      */
     public function delete(User $user, SupportDesk $ticket)

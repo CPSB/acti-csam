@@ -14,6 +14,10 @@
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
+// Account settings controller.
+Route::get('/account/settings',             'AccountSettingsController@index')->name('account.settings');
+Route::post('/account/settings/security',   'AccountSettingsController@updateSecurity')->name('account.settings.security');
+
 // Support desk routes 
 Route::get('/support/index',     'SupportdeskController@index')->name('support.index');
 Route::get('/support/show/{id}', 'SupportdeskController@show')->name('support.show');

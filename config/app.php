@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         ActivismeBE\DatabaseLayering\Repositories\Providers\RepositoryProvider::class,
+        ActivismeBE\FormHelper\FormServiceProvider::class,
 
         /*
          * Application Service Providers...

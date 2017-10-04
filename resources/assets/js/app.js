@@ -20,3 +20,17 @@ Vue.component('example', require('./components/Example.vue'));
 const app = new Vue({
     el: '#app'
 });
+
+$(function() {
+    $('a[data-toggle="tab"]').on('click', function(e) {
+        window.localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+
+    var activeTab = window.localStorage.getItem('activeTab');
+    if (activeTab) {
+        $('#activeTabs a[href="' + activeTab + '"]').tab('show');
+
+        // Unsure if we can delete this.
+        // window.localStorage.removeItem("activeTab");
+    }
+});

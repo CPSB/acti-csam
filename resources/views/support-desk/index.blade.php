@@ -10,7 +10,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <ul class="nav nav-pills" role="tablist" id="supportTabs">
+                        <ul class="nav nav-pills" role="tablist" id="activeTabs">
                             <li role="presentation" class="active">
                                 <a href="#assigned" aria-controls="assigned" role="tab" data-toggle="tab">
                                     Assigned Tickets <span class="badge">{{ $assignedTickets->count() }}</span>
@@ -71,19 +71,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        $(function() {
-            $('a[data-toggle="tab"]').on('click', function(e) {
-                window.localStorage.setItem('activeTab', $(e.target).attr('href'));
-            });
-
-            var activeTab = window.localStorage.getItem('activeTab');
-            if (activeTab) {
-                $('#supportTabs a[href="' + activeTab + '"]').tab('show');
-                window.localStorage.removeItem("activeTab");
-            }
-        });
-    </script>
-@endpush

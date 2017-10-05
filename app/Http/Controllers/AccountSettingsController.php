@@ -106,7 +106,6 @@ class AccountSettingsController extends Controller
     {
         $user = $this->usersRepository->delete($accountId) ?: abort(403);
 
-        // TODO: Register delete policy on the users model.
         if (Gate::allows('delete', $user)) {                // Authenticated user is allowed to delete the account.
             if ($user->delete()) {                          // The user has been deleted.
                 if ($user->id == auth()->user()->id) {      // The given user is the currently authencated user.

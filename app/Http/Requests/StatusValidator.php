@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class StatusValidator
+ *
+ * @author  Tim Joosten
+ * @license MIT LICENSE
  * @package ActivismeBE\Http\Requests
  */
 class StatusValidator extends FormRequest

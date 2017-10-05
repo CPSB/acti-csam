@@ -22,6 +22,7 @@ class CreateSupportDesksTable extends Migration
             $table->integer('assignee_id');
             $table->integer('category_id');
             $table->integer('status_id');
+            $table->integer('priority_id');
             $table->string('subject');
             $table->text('description');
             $table->timestamps();

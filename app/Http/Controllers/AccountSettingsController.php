@@ -28,7 +28,7 @@ class AccountSettingsController extends Controller
      * @param  UsersRepository $usersRepository The users abstraction layer between database and controller.
      * @return void
      */
-    public function __construct(UsersRepository $usersRepository, $user)
+    public function __construct(UsersRepository $usersRepository)
     {
         $this->middleware('auth');
         // $this->middleware('role:admin')              // TODO: Build up and register the middleware.

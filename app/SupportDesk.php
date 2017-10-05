@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\User[]          $assignee
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Categories[]    $category
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Statusses[]     $status
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Priorities[]    $priority
  */
 class SupportDesk extends Model
 {
@@ -77,5 +78,15 @@ class SupportDesk extends Model
     public function status()
     {
         return $this->belongsTo(Statusses::class, 'status_id');
+    }
+
+    /**
+     * Data relation for the support ticket priority.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function priority()
+    {
+        return $this->belongsTo(Priorities::class, 'priority_id');
     }
 }

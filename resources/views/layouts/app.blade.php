@@ -51,7 +51,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (auth()->check())
                             <li>
-                                <a href="">
+                                <a href="{{ route('notifications.index') }}">
                                     <span class="fa fa-bell" aria-hidden="true"></span>
                                     {{-- TODO: Reister the notifications count in the view. --}}
                                     {{-- TODO: Make in the SASS file a custom badge for the notifications count. --}}

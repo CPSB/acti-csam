@@ -18,10 +18,10 @@ class CreateSupportDesksTable extends Migration
     {
         Schema::create('support_desks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id');
-            $table->integer('assignee_id');
-            $table->integer('category_id');
-            $table->integer('status_id');
+            $table->integer('author_id')->nullable();
+            $table->integer('assignee_id')->nullable();
+            $table->integer('category_id')->nullable();
+            $table->integer('status_id')->nullable();
             $table->string('subject');
             $table->text('description');
             $table->timestamps();

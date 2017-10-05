@@ -18,7 +18,7 @@ class CreateStatussesTable extends Migration
     {
         Schema::create('statusses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id');
+            $table->integer('author_id')->nullable();
             $table->string('color', 10);
             $table->string('name');
             $table->text('description');

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 /**
@@ -15,6 +16,9 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('roles')->delete(); // truncate the roles table.
+
+        // Seeding the role table.
         Role::create(['name' => 'admin']);
     }
 }

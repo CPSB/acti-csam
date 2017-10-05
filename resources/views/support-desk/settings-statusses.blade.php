@@ -24,7 +24,13 @@
                     @foreach ($dbStatuses as $status) {{-- Loop through the statuses --}}
                         <tr>
                             <td><strong>#{{ $status->id }}</strong></td>
-                            <td>{{ $status->author->name }}</td>
+                            <td>
+                                @if (empty($status->author->name))
+                                    Onbekende persoon
+                                @else
+                                    {{ $status->author->name }}
+                                @endif
+                            </td>
                             <td><span style="color: {{ $status->color }}">{{ $status->name }}</span></td>
                             <td>{{ $status->description }}</td>
 

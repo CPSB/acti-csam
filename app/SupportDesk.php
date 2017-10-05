@@ -43,7 +43,8 @@ class SupportDesk extends Model
      */
     public function author() 
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class, 'author_id')
+            ->withDefault(['name' =>'Onbekende persoon']);
     }
 
     /**

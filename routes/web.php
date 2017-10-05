@@ -22,7 +22,7 @@ Route::get('/account/settings',             'AccountSettingsController@index')->
 Route::post('/account/settings/security',   'AccountSettingsController@updateSecurity')->name('account.settings.security');
 Route::post('/account/settings/info',       'AccountSettingsController@updateInfo')->name('account.settings.info');
 
-// Support desk routes 
+// Support desk routes
 Route::get('/support/index',     'SupportdeskController@index')->name('support.index');
 Route::get('/support/show/{id}', 'SupportdeskController@show')->name('support.show');
 Route::get('/support/create',    'SupportDeskController@create')->name('support.create');

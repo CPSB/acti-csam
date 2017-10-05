@@ -21,7 +21,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\User[]          $assignee
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Categories[]    $category
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Statusses[]     $status
+<<<<<<< HEAD
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Priorities[]    $priority
+=======
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Comments[]      $comments
+>>>>>>> master
  */
 class SupportDesk extends Model
 {
@@ -88,5 +92,15 @@ class SupportDesk extends Model
     public function priority()
     {
         return $this->belongsTo(Priorities::class, 'priority_id');
+    }
+
+    /**
+     * Data relation for the comments from the support ticket.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function comments()
+    {
+        return $this->belongsToMany(Comments::class)->withTimestamps();
     }
 }

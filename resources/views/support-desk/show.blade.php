@@ -14,9 +14,11 @@
                                 Edit
                             </a>
 
-                            <a href="" class="btn btn-xs btn-danger">
-                                Delete
-                            </a>
+                            @can('delete', $ticket)
+                                <a href="" class="btn btn-xs btn-danger">
+                                    <span class="fa fa-trash" aria-hidden="true"></span> Delete
+                                </a>
+                            @endcan
                         </div>
                     </div>
 
@@ -68,41 +70,45 @@
                     <div class="col-md-12">
                         <div class="blog-comment">
                             <ul class="comments">
-                                {{-- @foreach ($comments as $comment) --}}
+                                @php $comments = $ticket->comments()->paginate(5); @endphp
 
+                                @foreach ($comments as $comment)
                                     <li class="clearfix">
                                         <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar img-responsive" alt="">
                                         <div class="post-comments">
+
                                             <p class="meta">
-                                                10 oct, 2017 <a href="#">Tim Joosten</a> says:
+                                                {{ $comment->created_at->diffForHumans()}} <a href="#">{{ $comment->author->name }}</a> says:
+
                                                 <span class="pull-right">
-                                                {{-- @if ($user->id == $comment->author_id || $user->hasRole('Admin')) --}}
-                                                        <a class="btn btn-danger btn-xs" href="{{-- route('comments.delete', $comment) --}}">
-                                                        <small>
-                                                            <span class="fa fa-close" aria-hidden="true"></span> Delete
-                                                        </small>
-                                                    </a>
-                                                    {{-- @endif --}}
-                                            </span>
+
+                                                    @can('delete', $comment)
+                                                        <a class="btn btn-danger btn-xs" href="{{ route('comments.delete', $comment) }}">
+                                                            <small>
+                                                                <span class="fa fa-close" aria-hidden="true"></span> Delete
+                                                            </small>
+                                                        </a>
+                                                    @endcan
+                                                </span>
                                             </p>
-                                            <p>Test comment</p>
+                                            <p>{{ $comment->message }}</p>
                                         </div>
                                     </li>
-                                {{-- @endforeach --}}
+                                @endforeach
 
-                                {{-- $comments->render() --}}
+                                {{  $comments->render() }}
 
-                                <li class="clearfix">
+                                <li class="clearfix"> {{-- reaction box --}}
                                     <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar img-responsive" alt="">
                                     <div class="post-comments">
-                                        <p class="meta">Tim Joosten:</p>
+                                        <p class="meta">{{ $user->name }}:</p>
 
-                                        <form class="form-horizontal" method="POST" action="{{-- route('comments.store') --}}">
+                                        <form class="form-horizontal" method="POST" action="{{  route('comments.store', $ticket) }}">
                                             {{ csrf_field() }} {{-- CSRF form protection --}}
 
                                             <div class="form-group">
                                                 <div class="col-sm-12">
-                                                    <textarea style="resize: none;" name="comment" class="form-control" rows="3" placeholder="Uw reactie."></textarea>
+                                                    <textarea style="resize: none;" name="message" class="form-control" rows="3" placeholder="Uw reactie."></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -117,7 +123,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                </li>
+                                </li> {{-- /Reaction box --}}
 
                             </ul>
                         </div>

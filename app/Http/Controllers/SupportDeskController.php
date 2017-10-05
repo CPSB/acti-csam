@@ -77,7 +77,9 @@ class SupportDeskController extends Controller
      */
     public function show($ticketId): View
     {
-        $ticket = $this->supportDesk->find($ticketId) ?: abort(404);
+        $relations = ['comments.author'];
+        $ticket    = $this->supportDesk->with($relations)->find($ticketId) ?: abort(404);
+
         return view('support-desk.show', compact('ticket'));
     }
 

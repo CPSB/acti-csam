@@ -65,7 +65,7 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="">
+                                        <a href="{{ route('account.settings') }}">
                                             <span class="fa fa-wrench" aria-hidden="true"></span> Account instellingen
                                         </a>
                                     </li>

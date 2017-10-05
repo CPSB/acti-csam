@@ -18,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         \ActivismeBE\SupportDesk::class => \ActivismeBE\Policies\SupportDeskPolicy::class,
-        \ActivismeBE\Comments::class    => \ActivismeBE\Policies\CommentPolicy::class
+        \ActivismeBE\Comments::class    => \ActivismeBE\Policies\CommentPolicy::class,
+        \ActivismeBE\User::class        => \ActivismeBE\Policies\UserPolicy::class
     ];
 
     /**

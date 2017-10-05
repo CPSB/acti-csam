@@ -15,6 +15,8 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
+        // TODO; Create user and supervisor role.
+        //       Alse need to document them in the internals repo.
         Role::create(['name' => 'admin']);
     }
 }

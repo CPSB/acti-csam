@@ -53,6 +53,7 @@ class StatusController extends Controller
     {
         $input->merge(['author_id' => auth()->user()->id]);
 
+        // TODO: Register ACL gates
         if ($status = $this->statusRepository->create($input->except('_token'))) {
             flash("De Status {$status->name} is opgeslagen in het systeem.")->success();
         }
@@ -72,6 +73,7 @@ class StatusController extends Controller
     {
         $status = $this->statusRepository->find($statusId) ?: abort(404);
 
+        // TODO: Register ACL gates
         if ($this->statusRepository->delete($statusId)) {
             flash("De status {$status->name} is verwijderd uit het systeem.")->success();
         }

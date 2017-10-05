@@ -21,7 +21,6 @@ Route::get('/notifications', 'NotificationsController@index')->name('notificatio
 Route::get('/account/settings',             'AccountSettingsController@index')->name('account.settings');
 Route::post('/account/settings/security',   'AccountSettingsController@updateSecurity')->name('account.settings.security');
 Route::post('/account/settings/info',       'AccountSettingsController@updateInfo')->name('account.settings.info');
->>>>>>> master
 
 // Support desk routes 
 Route::get('/support/index',     'SupportdeskController@index')->name('support.index');

@@ -34,7 +34,7 @@
                     <ul class="nav navbar-nav"> {{-- Left Side Of Navbar --}}
                         @if (auth()->check()) {{-- Current user is authencated. --}}
                             <li>
-                                <a href="">
+                                <a href="{{ route('users.index') }}">
                                     <span class="fa fa-users" aria-hidden="true"></span> Users
                                 </a>
                             </li>

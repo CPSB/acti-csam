@@ -31,6 +31,9 @@ Route::get('priority/delete/{id}',  'PriorityController@delete')->name('priority
 Route::post('priority/update/{id}', 'PriorityController@update')->name('priority.update');
 Route::post('priority/store',       'PriorityController@store')->name('priority.store');
 
+// Users routes
+Route::get('/users', 'UsersController@index')->name('users.index');
+
 // Support desk routes
 Route::get('/support/index',     'SupportdeskController@index')->name('support.index');
 Route::get('/support/show/{id}', 'SupportdeskController@show')->name('support.show');

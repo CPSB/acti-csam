@@ -33,4 +33,14 @@ class UsersRepository extends Repository
     {
         return $this->model->role('admin')->get();
     }
+
+    /**
+     * Get the pure eloquent entity from the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function entity()
+    {
+        return $this->model;
+    }
 }

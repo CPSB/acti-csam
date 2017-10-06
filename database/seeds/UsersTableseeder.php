@@ -16,6 +16,13 @@ class UsersTableseeder extends Seeder
         // Truncate the users table.
         DB::table('users')->delete();
 
+        // Create system user.
+        factory(\ActivismeBE\User::class)->create([
+            'id'    => 1,
+            'name'  => 'Informatica Dienst',
+            'email' => 'informatica@activisme.be'
+        ]);
+
         // Seeding the database table.
         $user = factory(User::class)->create();
 

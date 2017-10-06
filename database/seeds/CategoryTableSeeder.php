@@ -1,5 +1,6 @@
 <?php
 
+use ActivismeBE\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +16,8 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        $categories = ['color' => '#ff0060', 'name' => 'client', 'module' => 'support-desk', 'description' => 'Word gebruikt voor een probleem in 1 van onze clients.'];
+        $system = User::find(1);
+        $categories = ['author_id' => $system->id,'color' => '#ff0060', 'name' => 'client', 'module' => 'support-desk', 'description' => 'Word gebruikt voor een probleem in 1 van onze clients.'];
 
         $table = DB::table('categories');
         $table->delete();

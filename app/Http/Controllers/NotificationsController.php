@@ -56,7 +56,7 @@ class NotificationsController extends Controller
     public function markAsRead($notificationid)
     {
         $notification = auth()->user()->notifications()->findOrFail($notificationid) ?: abort(404);
-        $notification->delete();
+        $notification->markAsread();
 
         return redirect()->route($notification->data['route']);
     }

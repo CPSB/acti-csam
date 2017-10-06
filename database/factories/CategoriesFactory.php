@@ -7,6 +7,7 @@ $factory->define(ActivismeBE\Categories::class, function (Faker $faker) {
         'author_id'     => function () { return factory(ActivismeBE\User::class)->create()->id; },
         'color'         => $faker->hexColor,
         'name'          => $faker->word,
+        'module'        => $faker->word,
         'description'   => $faker->word,
     ];
 });

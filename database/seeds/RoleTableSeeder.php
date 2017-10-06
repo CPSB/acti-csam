@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 /**
@@ -15,8 +16,10 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        // TODO; Create user and supervisor role.
-        //       Alse need to document them in the internals repo.
+        DB::table('roles')->delete(); // truncate the roles table.
+
+        // Seeding the role table.
         Role::create(['name' => 'admin']);
+        Role::create(['name' => 'supervisor']);
     }
 }

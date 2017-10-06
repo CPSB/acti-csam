@@ -4,6 +4,13 @@ namespace ActivismeBE\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class SupportdeskValidator
+ *
+ * @author  Tim Joosten
+ * @license MIT License
+ * @package ActivismeBE\Http\Requests
+ */
 class SupportdeskValidator extends FormRequest
 {
     /**
@@ -13,7 +20,7 @@ class SupportdeskValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +31,9 @@ class SupportdeskValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'subject'     => 'required',
+            'category_id' => 'required',
+            'description' => 'required'
         ];
     }
 }

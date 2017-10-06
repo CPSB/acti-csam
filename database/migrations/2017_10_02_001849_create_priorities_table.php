@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -18,7 +19,8 @@ class CreatePrioritiesTable extends Migration
     {
         Schema::create('priorities', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id');
+            $table->integer('author_id')->unsigned();
+            $table->foreign('author_id')->references('id')->on('users');
             $table->string('color', 10);
             $table->string('name');
             $table->text('description');
@@ -33,6 +35,8 @@ class CreatePrioritiesTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('priorities');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

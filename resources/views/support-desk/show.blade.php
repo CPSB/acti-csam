@@ -11,12 +11,12 @@
 
                         <div class="pull-right">
                             <a href="" class="btn btn-primary btn-xs">
-                                Edit
+                                <span class="fa fa-pencil" aria-hidden="true"></span> Wijzig
                             </a>
 
                             @can('delete', $ticket)
                                 <a href="" class="btn btn-xs btn-danger">
-                                    <span class="fa fa-trash" aria-hidden="true"></span> Delete
+                                    <span class="fa fa-trash" aria-hidden="true"></span> Verwijder
                                 </a>
                             @endcan
                         </div>
@@ -48,7 +48,7 @@
                                         </div>
 
                                         <div class="col-md-3"><strong>Priority:</strong></div>
-                                        <div class="col-md-3">{{-- Priority relation not defined. --}}</div>
+                                        <div class="col-md-3">{{ $ticket->priority->name }}</div>
 
                                         <div class="col-md-3"><strong>Created:</strong></div>
                                         <div class="col-md-3">{{ $ticket->created_at->diffForHumans() }}</div>
@@ -96,7 +96,7 @@
                                     </li>
                                 @endforeach
 
-                                {{  $comments->render() }}
+                                {{  $comments->render() }} {{-- Pagination instance for the comments. --}}
 
                                 <li class="clearfix"> {{-- reaction box --}}
                                     <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar img-responsive" alt="">

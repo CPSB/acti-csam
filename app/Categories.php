@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer        $id             The primary key from the category in the db.
  * @property integer        $author_id      The id form the user who has created the category.
  * @property string         $color          The HEX value from the category.
+ * @property string         $module         The module for the category.
  * @property string         $name           The name form the category.
  * @property string         $description    The description from the category.
  * @property \Carbon\Carbon $created_at     The timestamp when the category has been created.
@@ -20,11 +21,11 @@ use Illuminate\Database\Eloquent\Model;
 class Categories extends Model
 {
     /**
-     * Mss-assign fields for the database table.
+     * Mass-assign fields for the database table.
      *
      * @var array
      */
-    protected $fillable = ['author_id', 'color', 'name', 'description'];
+    protected $fillable = ['author_id', 'color', 'module', 'name', 'description'];
 
     /**
      * Data relation for the author.
@@ -33,6 +34,7 @@ class Categories extends Model
      */
     public function author()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class, 'author_id')
+            ->withDefault(['name' => 'Onbekende persoon']);
     }
 }

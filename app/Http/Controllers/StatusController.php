@@ -25,8 +25,8 @@ class StatusController extends Controller
     public function __construct(StatusRepository $statusRepository)
     {
         $this->middleware('author');
-        // $this->middleware('role:admin');         // TODO: Build up and register middleware.
-        // $this->middleware('forbid-banned-user'); // TODO: Build up and register middleware.
+        $this->middleware('role:supervisor');
+        $this->middleware('forbid-banned-user');
 
         $this->statusRepository = $statusRepository;
     }

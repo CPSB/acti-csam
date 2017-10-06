@@ -3,6 +3,7 @@
 namespace ActivismeBE\Http\Controllers;
 
 use ActivismeBE\Http\Requests\SupportdeskValidator;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use ActivismeBE\Repositories\{
     SupportDeskRepository, PriorityRepository, CategoryRepository, StatusRepository, UsersRepository
@@ -43,8 +44,8 @@ class SupportDeskController extends Controller
         UsersRepository         $users
     ) {
         $this->middleware('auth');
-        //! $this->middleware('role:admin');         // TODO: Implement and register middleware.
-        //! $this->middleware('forbid-banned-user'); // TODO: Implement and register middleware.
+        $this->middleware('role:admin|supervisor');
+        $this->middleware('forbid-banned-user');
 
         $this->supportDesk = $supportDesk;
         $this->priorities  = $priorities;
@@ -64,7 +65,9 @@ class SupportDeskController extends Controller
             'assignedTickets'   => $this->supportDesk->assignedTickets(auth()->user()->id),
             'completedTickets'  => $this->supportDesk->getTickets(['fixed', 'closed']),
             'activeTickets'     => $this->supportDesk->getTickets(['open', 'pending']),
-            'statuses'          => $this->statusses->getStatuses()
+            'statuses'          => $this->statusses->getStatuses(),
+            'priorities'        => $this->priorities->entity(),
+            'categories'        => $this->categories->findCategories('module', 'support-desk')
         ]); 
     }
 
@@ -102,16 +105,20 @@ class SupportDeskController extends Controller
     /**
      * Store a new support desk in the application.
      *
-     * @param SupportdeskValidator $input The user given input (validated).
+     * @param  SupportdeskValidator $input The user given input (validated).
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(SupportdeskValidator $input)
+    public function store(SupportdeskValidator $input): RedirectResponse
     {
-        // TODO: Fill-in the validator instance.
-        // TODO: Write out the logic.
-        // TODO: Register the route.
-        // TODO: Redirect the user back to the previous page.
+        $input->merge([
+            'author_id' => auth()->user()->id,
+            'status_id' => $this->statusses->findBy('name' ,'pending')->id
+        ]);
 
-        dd($input->all()); //! Dump the input for now because we have no logic defined.
+        if ($ticket = $this->supportDesk->create($input->except('_token'))) {
+            flash('Het ticket isaangemaakt in het systeem.')->success();
+        }
+
+        return redirect()->route('support.show', $ticket);
     }
 }

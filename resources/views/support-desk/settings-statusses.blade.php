@@ -24,12 +24,21 @@
                     @foreach ($dbStatuses as $status) {{-- Loop through the statuses --}}
                         <tr>
                             <td><strong>#{{ $status->id }}</strong></td>
-                            <td>{{ $status->author->name }}</td>
+                            <td>
+                                @if (empty($status->author->name))
+                                    Onbekende persoon
+                                @else
+                                    {{ $status->author->name }}
+                                @endif
+                            </td>
                             <td><span style="color: {{ $status->color }}">{{ $status->name }}</span></td>
                             <td>{{ $status->description }}</td>
 
-                            <td class="text-center"> {{-- Options --}}
-
+                            <td class="text-right"> {{-- Options --}}
+                                @if (! in_array($status->name, ['open', 'pending', 'fixed', 'closed']))
+                                    <a href="" class="label label-default">Wijzig</a>
+                                    <a href="" class="label label-danger">Verwijder</a>
+                                @endif
                             </td> {{-- /Options --}}
                         </tr>
                     @endforeach

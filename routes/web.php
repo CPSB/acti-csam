@@ -24,6 +24,13 @@ Route::get('/account/settings',             'AccountSettingsController@index')->
 Route::post('/account/settings/security',   'AccountSettingsController@updateSecurity')->name('account.settings.security');
 Route::post('/account/settings/info',       'AccountSettingsController@updateInfo')->name('account.settings.info');
 
+// Priority routes
+Route::get('priority/create',       'PriorityController@create')->name('priority.create');
+Route::get('priority/edit/{id}',    'PriorityController@edit')->name('priority.edit');
+Route::get('priority/delete/{id}',  'PriorityController@delete')->name('priority.delete');
+Route::post('priority/update/{id}', 'PriorityController@update')->name('priority.update');
+Route::post('priority/store',       'PriorityController@store')->name('priority.store');
+
 // Support desk routes
 Route::get('/support/index',     'SupportdeskController@index')->name('support.index');
 Route::get('/support/show/{id}', 'SupportdeskController@show')->name('support.show');

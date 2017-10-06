@@ -3,7 +3,7 @@
         <span class="fa fa-tags" aria-hidden="true"></span> Prioriteiten ticketten:
 
         <div class="pull-right">
-            <a class="btn btn-xs btn-primary" href="">
+            <a class="btn btn-xs btn-primary" href="{{ route('priority.create') }}">
                 <span class="fa fa-plus" aria-hidden="true"></span> Prioriteit toevoegen.
             </a>
         </div>
@@ -16,14 +16,14 @@
             <table class="table table-condensed table-responsive table-hover">
                 <thead>
                     <tr>
-                        <td>#</td>
-                        <td>Autheur:</td>
-                        <td>Naam:</td>
-                        <td colspan="2">Beschrijving:</td> {{-- Colspan="2" is nodig voor de functies. --}}
+                        <th>#</th>
+                        <th>Autheur:</th>
+                        <th>Naam:</th>
+                        <th colspan="2">Beschrijving:</th> {{-- Colspan="2" is nodig voor de functies. --}}
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dbpriorities as $priority) {{-- Loop through the priorities --}}
+                    @foreach ($dbPriorities as $priority) {{-- Loop through the priorities --}}
                         <tr>
                             <td><strong>#{{ $priority->id }}</strong></td>
                             <td>{{ $priority->author->name }}</td>
@@ -33,14 +33,16 @@
                                 </span>
                             </td>
                             <td>{{ $priority->description }}</td>
-                            <td class="pull-right"> {{-- Options --}}
-                                <a href="" class="label label-primary">Wijzig</a>
-                                <a href="" class="label label-danger">Verwijder</a>
+                            <td class="text-right"> {{-- Options --}}
+                                <a href="{{ route('priority.edit', $priority) }}" class="label label-primary">Wijzig</a>
+                                <a href="{{ route('priority.delete', $priority) }}" class="label label-danger">Verwijder</a>
                             </td> {{-- /Options --}}
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
+            {{ $dbPriorities->render() }} {{-- Pagination instance --}}
         @else {{-- No priorities found in the system.  --}}
             <div class="alert alert-warning" role="alert">
                 <strong>Info:</strong> Er zijn geen ticket prioriteiten gevonden in het systeem.

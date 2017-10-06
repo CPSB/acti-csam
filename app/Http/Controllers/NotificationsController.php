@@ -27,7 +27,7 @@ class NotificationsController extends Controller
     public function __construct(DatabaseNotification $databaseNotification)
     {
         $this->middleware('auth');
-        $this->middelware('role:admin|supervisor');
+        $this->middleware('role:admin|supervisor');
         // $this->middelware('forbid-banned-user');
 
         $this->databaseNotification = $databaseNotification;

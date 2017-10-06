@@ -42,17 +42,23 @@ class NotificationsController extends Controller
         $userNotifications = auth()->user()->notifications();
 
         return view('notifications.index', [
-            'unreads'       => $userNotifications->where('read_at', '')->paginate(10),
-            'notifications' => $userNotifications->paginate(10)
+            'notifications' => $userNotifications->where('read_at', '')->paginate(10),
+            'unreads'       => $userNotifications->paginate(10)
         ]);
     }
 
+    /**
+     * Mark a specific notification as read.
+     *
+     * @param  string $notificationid The serialization id in the storage
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function markAsRead($notificationid)
     {
-        $notification = auth()->user()->notification()->findOrFail($notificationid) ?: abort(404);
-        dd($notification);
+        $notification = auth()->user()->notifications()->findOrFail($notificationid) ?: abort(404);
+        $notification->delete();
 
-        return redirect(/** The url form the notification */);
+        return redirect()->route($notification->data['route']);
     }
 
     /**

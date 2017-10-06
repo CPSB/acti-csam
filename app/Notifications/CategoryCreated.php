@@ -32,7 +32,7 @@ class CategoryCreated extends Notification
      */
     public function via($notifiable)
     {
-        return ['array'];
+        return ['database'];
     }
 
     /**
@@ -44,7 +44,9 @@ class CategoryCreated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'test' => 'test'
+            'avatar'  => asset($this->user->avatar),
+            'message' => 'Er is een nieuwe support category aangemaakt.',
+            'route'   => 'support.index'
         ];
     }
 }

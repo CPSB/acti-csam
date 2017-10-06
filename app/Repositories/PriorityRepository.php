@@ -24,4 +24,14 @@ class PriorityRepository extends Repository
     {
         return Priorities::class;
     }
+
+    /**
+     * Get the base entity for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function entity()
+    {
+        return $this->model;
+    }
 }

@@ -29,7 +29,7 @@ class CategoryController extends Controller
     public function __construct(CategoryRepository $categoryRepository)
     {
         $this->middleware('auth');
-        // $this->middleware('role:supervisor');
+        $this->middleware('role:supervisor');
         // $this->middleware('forbid-banned-user')
 
         $this->categoryRepository = $categoryRepository;

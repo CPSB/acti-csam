@@ -44,7 +44,7 @@ class SupportDeskController extends Controller
         UsersRepository         $users
     ) {
         $this->middleware('auth');
-        //! $this->middleware('role:admin');         // TODO: Implement and register middleware.
+        $this->middleware('role:admin|supervisor');
         //! $this->middleware('forbid-banned-user'); // TODO: Implement and register middleware.
 
         $this->supportDesk = $supportDesk;

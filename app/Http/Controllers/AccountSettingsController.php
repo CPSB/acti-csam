@@ -31,7 +31,7 @@ class AccountSettingsController extends Controller
     public function __construct(UsersRepository $usersRepository)
     {
         $this->middleware('auth');
-        // $this->middleware('role:admin')              // TODO: Build up and register the middleware.
+        $this->middleware('role:admin|supervisor');
         // $this->middleware('forbid-banned-user');     // TODO: Build up and register the middleware.
 
         $this->user            = auth()->user();        // The attribute for the currently authenticated user.

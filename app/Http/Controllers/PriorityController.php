@@ -29,7 +29,7 @@ class PriorityController extends Controller
     public function __construct(PriorityRepository $priorityRepository)
     {
         $this->middleware('auth');
-        // $this->middleware('role:supervisor');
+        $this->middleware('role:supervisor');
         // $this->middleware('forbid-banned-user');
 
         $this->priorityRepository = $priorityRepository;

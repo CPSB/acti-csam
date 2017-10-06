@@ -34,7 +34,7 @@
                             <td>{{ $category->description }}</td>
                             <td class="text-right">
                                 <a href="{{ route('category.edit', $category) }}" class="label label-primary">Wijzig</a>
-                                <a href="" class="label label-danger">Verwijder</a>
+                                <a href="{{ route('category.delete', $category) }}" class="label label-danger">Verwijder</a>
                             </td>
                         </tr>
                     @endforeach

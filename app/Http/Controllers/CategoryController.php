@@ -98,8 +98,20 @@ class CategoryController extends Controller
         return redirect()->route('support.index');
     }
 
-    public function delete()
+    /**
+     * Delete a category ot off the system.
+     *
+     * @param  integer $categoryId The primary key for the category in the storage.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete($categoryId)
     {
+        $cat = $this->categoryRepository->find($categoryId) ?: abort(404);
 
+        if ($this->categoryRepository->delete($categoryId)) {
+            flash("{$cat->name} is verwijderd als categorie uit het systeem.")->success();
+        }
+
+        return redirect()->back(302);
     }
 }

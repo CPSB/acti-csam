@@ -33,6 +33,7 @@ Route::post('/support/store',    'Supportdeskcontroller@store')->name('support.s
 // Category routes
 Route::get('/categories/create',     'CategoryController@create')->name('category.create');
 Route::get('/categories/edit/{id}',  'CategoryController@edit')->name('category.edit');
+Route::get('/category/delete/{id}',  'CategoryController@delete')->name('category.delete');
 Route::post('/categories/edit/{id}', 'CategoryController@update')->name('category.update');
 Route::post('/categories/store',     'CategoryController@store')->name('category.store');
 

@@ -51,13 +51,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'          => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'         => \ActivismeBE\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'role'          => \Spatie\Permission\Middlewares\RoleMiddleware::class,
-        'permissions'   => \Spatie\Permission\Middlewares\PermissionMiddleware::class
+        'auth'                  => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth.basic'            => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings'              => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can'                   => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'                 => \ActivismeBE\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle'              => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'role'                  => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permissions'           => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'forbid-banned-user'    => \Cog\Laravel\Ban\Http\Middleware\ForbidBannedUser::class,
     ];
 }

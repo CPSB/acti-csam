@@ -35,7 +35,7 @@ class CommentsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('role:admin|supervisor')->except(['destroy']);
-        // this->middleware('forbid-banned-user'); // TODO: Build up the register middleware.
+        $this->middleware('forbid-banned-user');
 
         $this->commentsRepository = $commentsRepository;
         $this->ticketRepository   = $ticketRepository;

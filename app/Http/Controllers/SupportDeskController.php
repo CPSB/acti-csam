@@ -45,7 +45,7 @@ class SupportDeskController extends Controller
     ) {
         $this->middleware('auth');
         $this->middleware('role:admin|supervisor');
-        //! $this->middleware('forbid-banned-user'); // TODO: Implement and register middleware.
+        $this->middleware('forbid-banned-user');
 
         $this->supportDesk = $supportDesk;
         $this->priorities  = $priorities;

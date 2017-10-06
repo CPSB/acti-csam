@@ -26,7 +26,7 @@ class StatusController extends Controller
     {
         $this->middleware('author');
         $this->middleware('role:supervisor');
-        // $this->middleware('forbid-banned-user'); // TODO: Build up and register middleware.
+        $this->middleware('forbid-banned-user');
 
         $this->statusRepository = $statusRepository;
     }

@@ -28,7 +28,7 @@ class NotificationsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('role:admin|supervisor');
-        // $this->middelware('forbid-banned-user');
+        $this->middelware('forbid-banned-user');
 
         $this->databaseNotification = $databaseNotification;
     }

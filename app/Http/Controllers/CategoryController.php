@@ -30,7 +30,7 @@ class CategoryController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('role:supervisor');
-        // $this->middleware('forbid-banned-user')
+        $this->middleware('forbid-banned-user');
 
         $this->categoryRepository = $categoryRepository;
     }

@@ -30,7 +30,7 @@ class PriorityController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('role:supervisor');
-        // $this->middleware('forbid-banned-user');
+        $this->middleware('forbid-banned-user');
 
         $this->priorityRepository = $priorityRepository;
     }

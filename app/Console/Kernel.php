@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //TODO: Register method to check for activate blocked users when ban is expired
+        $schedule->command('ban:delete-expired')->everyMinute();
         //TODO: Implement cronjob for backing up the database.
     }
 

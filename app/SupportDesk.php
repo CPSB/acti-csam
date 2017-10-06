@@ -91,7 +91,8 @@ class SupportDesk extends Model
      */
     public function priority()
     {
-        return $this->belongsTo(Priorities::class, 'priority_id');
+        return $this->belongsTo(Priorities::class, 'priority_id')
+            ->withDefault(['name' => 'Niet gedefinieerd.']);
     }
 
     /**

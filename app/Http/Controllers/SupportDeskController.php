@@ -65,7 +65,8 @@ class SupportDeskController extends Controller
             'assignedTickets'   => $this->supportDesk->assignedTickets(auth()->user()->id),
             'completedTickets'  => $this->supportDesk->getTickets(['fixed', 'closed']),
             'activeTickets'     => $this->supportDesk->getTickets(['open', 'pending']),
-            'statuses'          => $this->statusses->getStatuses()
+            'statuses'          => $this->statusses->getStatuses(),
+            'categories'        => $this->categories->findCategories('module', 'support-desk')
         ]); 
     }
 

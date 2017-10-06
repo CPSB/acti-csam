@@ -47,6 +47,14 @@ class NotificationsController extends Controller
         ]);
     }
 
+    public function markAsRead($notificationid)
+    {
+        $notification = auth()->user()->notification()->findOrFail($notificationid) ?: abort(404);
+        dd($notification);
+
+        return redirect(/** The url form the notification */);
+    }
+
     /**
      * Mark the user his notifications as read.
      *

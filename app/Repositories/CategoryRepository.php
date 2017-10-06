@@ -24,4 +24,16 @@ class CategoryRepository extends Repository
     {
         return Categories::class;
     }
+
+    /**
+     * Get the categories by field/value and return the entity.
+     *
+     * @param  string $column   The name for the database column.
+     * @param  string $value    The value for the database column.
+     * @return mixed
+     */
+    public function findCategories($column, $value)
+    {
+        return $this->model->where($column, $value);
+    }
 }

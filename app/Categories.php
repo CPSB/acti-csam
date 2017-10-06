@@ -20,8 +20,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Categories extends Model
 {
-    // TODO: Register some seeder with categories.
-
     /**
      * Mass-assign fields for the database table.
      *
@@ -36,6 +34,7 @@ class Categories extends Model
      */
     public function author()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class, 'author_id')
+            ->withDefault(['name' => 'Onbekende persoon']);
     }
 }

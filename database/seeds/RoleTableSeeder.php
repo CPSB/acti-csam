@@ -18,10 +18,8 @@ class RoleTableSeeder extends Seeder
     {
         DB::table('roles')->delete(); // truncate the roles table.
 
-        // TODO; Create user and supervisor role.
-        //       Alse need to document them in the internals repo.
-
         // Seeding the role table.
         Role::create(['name' => 'admin']);
+        Role::create(['name' => 'supervisor']);
     }
 }

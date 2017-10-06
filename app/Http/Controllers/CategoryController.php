@@ -3,7 +3,9 @@
 namespace ActivismeBE\Http\Controllers;
 
 use ActivismeBE\Http\Requests\CategoryValidator;
+use ActivismeBE\Notifications\CategoryCreated;
 use ActivismeBE\Repositories\CategoryRepository;
+use ActivismeBE\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -54,6 +56,12 @@ class CategoryController extends Controller
         $input->merge(['author_id' => auth()->user()->id, 'module' => 'support-desk']);
 
         if ($category = $this->categoryRepository->create($input->except('_token'))) {
+            $users = User::role('supervisor')->get();
+
+            foreach ($users as $user) { // Loop through the supervisors
+                $user->notify(new CategoryCreated(auth()->user()));
+            }
+
             flash("'{$category->name}' is toegevoegd als support categorie.")->success();
         }
 

@@ -34,7 +34,7 @@
                                             <td>
                                                 <a href="" class="label label-info">Bekijk</a>
                                                 <a href="" class="label label-danger">Blokkeer</a>
-                                                <a href="" class="label label-danger">Verwijder</a>
+                                                <a href="{{ route('users.delete', $user) }}" class="label label-danger">Verwijder</a>
                                             </td>
                                         </tr>
                                     @endforeach

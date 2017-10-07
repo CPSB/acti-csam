@@ -3,7 +3,7 @@
 namespace ActivismeBE\Http\Controllers;
 
 use ActivismeBE\Repositories\UsersRepository;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 /**
@@ -40,5 +40,26 @@ class UsersController extends Controller
         return view('users.index', [
             'users' => $this->usersRepository->entity()
         ]);
+    }
+
+    /**
+     * Delete a user out off the system.
+     *
+     * @param  integer $userId The primary key from the user in the storage
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($userId): RedirectResponse
+    {
+        $user = $this->usersRepository->find($userId) ?: abort(404);
+
+        if ($user->isBanned()) { // The user is currently banned in the system.
+            $user->unban(); // Unban in theuser in the system before the deletion.
+        }
+
+        if ($this->usersRepository->delete($userId)) {
+            flash("{$user->name} is verwijderd uit het systeem.")->success();
+        }
+
+        return redirect()->route('users.index');
     }
 }

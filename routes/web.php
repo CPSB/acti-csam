@@ -33,6 +33,7 @@ Route::post('priority/store',       'PriorityController@store')->name('priority.
 
 // Users routes
 Route::get('/users',                'UsersController@index')->name('users.index');
+Route::get('/users/json/{id}',      'UsersController@getUserJson')->name('users.json');
 Route::get('/users/delete/{id}',    'UsersController@destroy')->name('users.delete');
 
 // Support desk routes

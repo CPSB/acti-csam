@@ -43,6 +43,18 @@ class UsersController extends Controller
     }
 
     /**
+     * Get a user from the database and return them in json.
+     *
+     * @param  integer $userId The primary key for the user in the storage.
+     * @return mixed
+     */
+    public function getUserJson($userId) // Geen typehints wegen mixed content return.
+    {
+        $user = $this->usersRepository->findOrFail($userId) ?: abort(404);
+        return response()->json($user);
+    }
+
+    /**
      * Delete a user out off the system.
      *
      * @param  integer $userId The primary key from the user in the storage

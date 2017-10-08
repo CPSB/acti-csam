@@ -2,6 +2,7 @@
 
 namespace ActivismeBE\Http\Controllers;
 
+use Gate;
 use ActivismeBE\Http\Requests\StatusValidator;
 use ActivismeBE\Repositories\StatusRepository;
 use Illuminate\Http\RedirectResponse;
@@ -53,9 +54,10 @@ class StatusController extends Controller
     {
         $input->merge(['author_id' => auth()->user()->id]);
 
-        // TODO: Register ACL gates
-        if ($status = $this->statusRepository->create($input->except('_token'))) {
-            flash("De Status {$status->name} is opgeslagen in het systeem.")->success();
+        if (Gate::allows('create')) {
+            if ($status = $this->statusRepository->create($input->except('_token'))) {
+                flash("De Status {$status->name} is opgeslagen in het systeem.")->success();
+            }
         }
 
         return redirect()->back(302);

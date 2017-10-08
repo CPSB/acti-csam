@@ -41,7 +41,7 @@
 
                             <li @if (Request::is('support*')) class="active" @endif>
                                 <a href="{{ route('support.index') }}">
-                                    Support tickets
+                                    <span class="fa fa-list" aria-hidden="true"></span> Support tickets
                                 </a>
                             </li>
                         @endif

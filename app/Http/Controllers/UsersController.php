@@ -5,6 +5,7 @@ namespace ActivismeBE\Http\Controllers;
 use ActivismeBE\Repositories\UsersRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 /**
@@ -63,7 +64,20 @@ class UsersController extends Controller
      */
     public function block(Request $input): RedirectResponse
     {
-        dd($input->all());
+        $validation = Validator::make($input->all(), [
+           'userId' => 'required', 'reason' => 'required'
+        ]);
+
+        if ($validation->fails()) {
+            flash("Wij kunnen de gebruiker niet blokkeren wegens validatie fouten.");
+            return redirect()->back(302);
+        }
+
+        $user = $this->usersRepository->findOrFail($input->userId) ?: abort(404);
+        $user->ban(['comment' => $input->reason, 'expired_at' => '+1 week']);
+
+        flash("{$user->name} is geblokkeerd voor een week.")->success();
+
         return redirect()->route('users.index');
     }
 

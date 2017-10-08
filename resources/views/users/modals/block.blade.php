@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <h4 class="modal-title" id="myModalLabel">Rapporteer een reactie.</h4>
+                <h4 class="modal-title" id="myModalLabel">Blokkeer een gebruiker.</h4>
             </div>
 
             <div class="modal-body form">

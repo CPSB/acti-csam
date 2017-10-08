@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        {{-- TODO: Implement flash session instance. --}}
+        @include('flash::message') {{-- Flash session instance. --}}
 
         <div class="row">
             <div class="col-md-9"> {{-- User overview. --}}
@@ -26,6 +26,8 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($userBase as $user) {{-- loop through the users.  --}}
+
+                                        {{-- Indicate the table row color. When the user is banned in the system. --}}
                                         @if ($user->isBanned())
                                             <tr class="danger">
                                         @else
@@ -35,13 +37,13 @@
                                             <td>{{ $user->name }}</td>
                                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                             <td>{{ $user->created_at->format('d/m/Y') }}</td>
-                                            <td>
+                                            <td class="text-right">
                                                 <a href="" class="label label-info">Bekijk</a>
 
                                                 @if (! $user->isBanned()) {{-- The user is active in the system. --}}
                                                     <a class="label label-danger" onclick="blockUser('{{ route('users.json', $user) }}')">Blokkeer</a>
                                                 @elseif ($user->isBanned()) {{-- The user is blocked in the system. --}}
-                                                    {{-- TODO: Register unblock function. --}}
+                                                    <a href="{{ route('users.unblock', $user) }}" class="label label-success">Activeer</a>
                                                 @endif
 
                                                 <a href="{{ route('users.delete', $user) }}" class="label label-danger">Verwijder</a>

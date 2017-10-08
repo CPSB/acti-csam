@@ -59,7 +59,7 @@ class UsersController extends Controller
     /**
      * Block the user in the system.
      *
-     * @todo: Implemnet method that the currently authencated user cannot ban himself.
+     * @todo: Implemnet method that the currently authencated user cannot ban himself. (Gate)
      * @todo: Implement method to send an email notification to the banned user.
      *
      * @param  Request $input The user given input.
@@ -85,6 +85,27 @@ class UsersController extends Controller
     }
 
     /**
+     * Unblock a user in the system.
+     *
+     * @param  integer $userId The primary key for the user in the storage.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unblock($userId): RedirectResponse
+    {
+        $user = $this->usersRepository->findOrFail($userId) ?: abort(404);
+
+        if ($user->id != auth()->user()->id && $user->isBanned()) { // The authencated user can't unblock himself.
+            $user->unban();
+            flash("{$user->name} is terug geactiveerd in het systeem.")->success();
+        }
+        // TODO: Check if the authencated user is the given user. IF yes = abort. (Gate)
+        // TODO: Check if the user is banned or not. if banned == proceed
+        // TODO: Register flash session for information purpose (user is registered as active.)
+
+        return redirect()->route('users.index');
+    }
+
+    /**
      * Delete a user out off the system.
      *
      * @param  integer $userId The primary key from the user in the storage
@@ -94,11 +115,11 @@ class UsersController extends Controller
     {
         $user = $this->usersRepository->find($userId) ?: abort(404);
 
-        if ($user->isBanned()) { // The user is currently banned in the system.
-            $user->unban(); // Unban in theuser in the system before the deletion.
+        if ($user->isBanned()) {    // The user is currently banned in the system.
+            $user->unban();         // Unban in theuser in the system before the deletion.
         }
 
-        if ($this->usersRepository->delete($userId)) {
+        if ($this->usersRepository->delete($userId)) {  // User deleted
             flash("{$user->name} is verwijderd uit het systeem.")->success();
         }
 

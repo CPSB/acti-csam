@@ -21,18 +21,18 @@ class CreateSupportDesksTable extends Migration
             $table->increments('id');
 
             $table->integer('author_id')->unsigned();
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cscade');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->integer('assignee_id')->unsigned();
+            $table->integer('assignee_id')->unsigned()->nullable();
             $table->foreign('assignee_id')->references('id')->on('users')->onDelete('set null');
 
-            $table->integer('category_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
 
-            $table->integer('status_id')->unsigned();
+            $table->integer('status_id')->unsigned()->nullable();
             $table->foreign('status_id')->references('id')->on('statusses')->onDelete('set null');
 
-            $table->integer('priority_id')->unsigned();
+            $table->integer('priority_id')->unsigned()->nullable();
             $table->foreign('priority_id')->references('id')->on('priorities')->onDelete('set null');
 
             $table->string('subject');

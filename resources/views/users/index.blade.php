@@ -84,7 +84,7 @@
                         <span class="pull-right badge">{{ $users->count() }}</span>
                     </a>
 
-                    <a href="" class="list-group-item">
+                    <a href="{{ route('users.create') }}" class="list-group-item">
                         Gebruiker toevoegen.
                     </a>
                 </div>

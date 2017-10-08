@@ -2,8 +2,9 @@
 
 namespace ActivismeBE\Http\Controllers;
 
+use ActivismeBE\Http\Requests\UsersValidator;
 use Gate;
-use ActivismeBE\Repositories\UsersRepository;
+use ActivismeBE\Repositories\{UsersRepository, RoleRepository};
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,6 +18,7 @@ use Illuminate\View\View;
  */
 class UsersController extends Controller
 {
+    private $roleRepository;  /** @var UsersRepository $roleRepository  */
     private $usersRepository; /** @var UsersRepository $usersRepository */
 
     /**
@@ -24,13 +26,14 @@ class UsersController extends Controller
      *
      * @param UsersRepository $usersRepository Abstraction layer between database and controller.
      */
-    public function __construct(UsersRepository $usersRepository)
+    public function __construct(UsersRepository $usersRepository, RoleRepository $roleRepository)
     {
         $this->middleware('auth');
         $this->middleware('role:supervisor')->except('destroy');
         $this->middleware('forbid-banned-user');
 
         $this->usersRepository = $usersRepository;
+        $this->roleRepository  = $roleRepository;
     }
 
     /**
@@ -85,6 +88,30 @@ class UsersController extends Controller
         $user->ban(['comment' => $input->reason, 'expired_at' => '+1 week']);
 
         flash("{$user->name} is geblokkeerd voor een week.")->success();
+        return redirect()->route('users.index');
+    }
+
+    /**
+     * Create view for a new view in the user.
+     *
+     * @return \Illuminate\Contracts\View\Factory|View
+     */
+    public function create(): View
+    {
+        return view('users.create', [
+            'roles' => $this->roleRepository->all(['id' => 'name'])
+        ]);
+    }
+
+    /**
+     * Store the new user in the database storage.
+     *
+     * @param  UsersValidator $input The user given input. (validated)
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(UsersValidator $input): RedirectResponse
+    {
+        dd($input->all());
         return redirect()->route('users.index');
     }
 

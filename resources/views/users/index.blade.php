@@ -26,14 +26,24 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($userBase as $user) {{-- loop through the users.  --}}
-                                        <tr>
+                                        @if ($user->isBanned())
+                                            <tr class="danger">
+                                        @else
+                                            <tr>
+                                        @endif
                                             <td><strong>#{{ $user->id }}</strong></td>
                                             <td>{{ $user->name }}</td>
                                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                             <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                             <td>
                                                 <a href="" class="label label-info">Bekijk</a>
-                                                <a class="label label-danger" onclick="blockUser('{{ route('users.json', $user) }}')">Blokkeer</a>
+
+                                                @if (! $user->isBanned()) {{-- The user is active in the system. --}}
+                                                    <a class="label label-danger" onclick="blockUser('{{ route('users.json', $user) }}')">Blokkeer</a>
+                                                @elseif ($user->isBanned()) {{-- The user is blocked in the system. --}}
+                                                    {{-- TODO: Register unblock function. --}}
+                                                @endif
+
                                                 <a href="{{ route('users.delete', $user) }}" class="label label-danger">Verwijder</a>
                                             </td>
                                         </tr>

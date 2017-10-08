@@ -17,6 +17,8 @@ class UserBlocked extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param  mixed $user
+     * @param  mixed $input
      * @return void
      */
     public function __construct($user, $input)

@@ -22,6 +22,8 @@ class NewUser extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param  mixed  $input
+     * @param  string $password
      * @return void
      */
     public function __construct($input, $password)

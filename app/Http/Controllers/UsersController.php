@@ -66,8 +66,6 @@ class UsersController extends Controller
     /**
      * Block the user in the system.
      *
-     * @todo: Implement method to send an email notification to the banned user.
-     *
      * @param  Request $input The user given input.
      * @return \Illuminate\Http\RedirectResponse
      */

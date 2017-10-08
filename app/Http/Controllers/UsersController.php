@@ -4,6 +4,7 @@ namespace ActivismeBE\Http\Controllers;
 
 use ActivismeBE\Repositories\UsersRepository;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
@@ -52,6 +53,18 @@ class UsersController extends Controller
     {
         $user = $this->usersRepository->findOrFail($userId) ?: abort(404);
         return response()->json($user);
+    }
+
+    /**
+     * Block the user in the system.
+     *
+     * @param  Request $input The user given input.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function block(Request $input): RedirectResponse
+    {
+        dd($input->all());
+        return redirect()->route('users.index');
     }
 
     /**

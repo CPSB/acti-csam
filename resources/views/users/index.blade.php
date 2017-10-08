@@ -33,7 +33,7 @@
                                             <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                             <td>
                                                 <a href="" class="label label-info">Bekijk</a>
-                                                <a href="" class="label label-danger">Blokkeer</a>
+                                                <a class="label label-danger" onclick="blockUser('{{ route('users.json', $user) }}')">Blokkeer</a>
                                                 <a href="{{ route('users.delete', $user) }}" class="label label-danger">Verwijder</a>
                                             </td>
                                         </tr>
@@ -79,4 +79,31 @@
             </div> {{-- /Option sidenav --}}
         </div>
     </div>
+
+    @include('users.modals.block')
+
+    @push('scripts')
+        <script>
+            function blockUser(hyperlink)  {
+                $('#form')[0].reset(); // Reset form on modals.
+
+                // AJAX load data form ajax
+                $.ajax({
+                    url      : hyperlink,
+                    type     : 'GET',
+                    dataType : 'JSON',
+                    success  : function(data) {
+                        $('[name="userId"]').val(data.id);
+                        $('[name="name"]').val(data.name);
+
+                        // Trigger modal.
+                        $('#block_user').modal('show'); // Show bootstrap modal when complete loaded.
+                    },
+                    error    : function(jqXHR, textStatus, errorThrown) {
+                        alert('Error get data from ajax');
+                    }
+                });
+            }
+        </script>
+    @endpush
 @endsection

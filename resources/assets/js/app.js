@@ -21,14 +21,6 @@ const app = new Vue({
     el: '#app'
 });
 
-$(function() {
-    $('a[data-toggle="tab"]').on('click', function(e) {
-        window.localStorage.setItem('activeTab', $(e.target).attr('href'));
-    });
-
-    var activeTab = window.localStorage.getItem('activeTab');
-    if (activeTab) {
-        $('#activeTabs a[href="' + activeTab + '"]').tab('show');
-        // window.localStorage.removeItem("activeTab");
-    }
-});
+// 3th party requires
+require('./tabs');
+require('./ajax-user');

@@ -52,9 +52,9 @@ class StatusController extends Controller
      */
     public function store(StatusValidator $input): RedirectResponse
     {
-        $input->merge(['author_id' => auth()->user()->id]);
-
         if (Gate::allows('create')) {
+            $input->merge(['author_id' => auth()->user()->id]);
+
             if ($status = $this->statusRepository->create($input->except('_token'))) {
                 flash("De Status {$status->name} is opgeslagen in het systeem.")->success();
             }

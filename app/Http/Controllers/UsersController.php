@@ -2,6 +2,7 @@
 
 namespace ActivismeBE\Http\Controllers;
 
+use Gate;
 use ActivismeBE\Repositories\UsersRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class UsersController extends Controller
     public function __construct(UsersRepository $usersRepository)
     {
         $this->middleware('auth');
-        $this->middleware('role:admin|supervisor')->except('destroy');
+        $this->middleware('role:supervisor')->except('destroy');
         $this->middleware('forbid-banned-user');
 
         $this->usersRepository = $usersRepository;
@@ -59,7 +60,6 @@ class UsersController extends Controller
     /**
      * Block the user in the system.
      *
-     * @todo: Implemnet method that the currently authencated user cannot ban himself. (Gate)
      * @todo: Implement method to send an email notification to the banned user.
      *
      * @param  Request $input The user given input.
@@ -76,11 +76,15 @@ class UsersController extends Controller
             return redirect()->back(302);
         }
 
+        if (auth()->user()->id == $input->userId) {
+            flash("U kunt uzelf niet blokkeren in het systeem.")->error();
+            return redirect()->back(302);
+        }
+
         $user = $this->usersRepository->findOrFail($input->userId) ?: abort(404);
         $user->ban(['comment' => $input->reason, 'expired_at' => '+1 week']);
 
         flash("{$user->name} is geblokkeerd voor een week.")->success();
-
         return redirect()->route('users.index');
     }
 
@@ -105,8 +109,6 @@ class UsersController extends Controller
     /**
      * Delete a user out off the system.
      *
-     * @todo Implement gate that only a supervisor or the user in question can delete the account
-     *
      * @param  integer $userId The primary key from the user in the storage
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -114,12 +116,16 @@ class UsersController extends Controller
     {
         $user = $this->usersRepository->find($userId) ?: abort(404);
 
-        if ($user->isBanned()) {    // The user is currently banned in the system.
-            $user->unban();         // Unban in theuser in the system before the deletion.
-        }
+        if (Gate::allows('delete', $user)) {                // Check if the user has the right permissions.
+            if ($user->isBanned()) {                        // The user is currently banned in the system.
+                $user->unban();                             // Unban in the user in the system before the deletion.
+            }
 
-        if ($this->usersRepository->delete($userId)) {  // User deleted
-            flash("{$user->name} is verwijderd uit het systeem.")->success();
+            if ($this->usersRepository->delete($userId)) {  // User deleted
+                if ($user->is == auth()->user()->id) auth()->logout();
+
+                flash("{$user->name} is verwijderd uit het systeem.")->success();
+            }
         }
 
         return redirect()->route('users.index');

@@ -4,6 +4,13 @@ namespace ActivismeBE\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class UsersValidator
+ *
+ * @author  Tim Joosten
+ * @license MIT License
+ * @package ActivismeBE\Http\Requests
+ */
 class UsersValidator extends FormRequest
 {
     /**
@@ -13,7 +20,7 @@ class UsersValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +31,10 @@ class UsersValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|string|email|max:255|unique:users',
+            'language'  => 'required',
+            // 'password'  => 'required|string|min:6|confirmed',
         ];
     }
 }

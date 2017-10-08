@@ -3,10 +3,12 @@
 namespace ActivismeBE\Http\Controllers;
 
 use ActivismeBE\Http\Requests\UsersValidator;
+use ActivismeBE\Mail\NewUser;
 use Gate;
 use ActivismeBE\Repositories\{UsersRepository, RoleRepository};
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
@@ -111,7 +113,15 @@ class UsersController extends Controller
      */
     public function store(UsersValidator $input): RedirectResponse
     {
-        dd($input->all());
+        $password = str_random(15);
+        $input->merge(['password' => bcrypt($password)]);
+
+        if ($user = $this->usersRepository->create($input->except('_token'))) {
+            // dd($input->all()); // Debugging propose.
+            Mail::to($input->email)->send(new NewUser($input, $password));
+            flash("{$user->name} is geregistreerd in het systeem.")->success();
+        }
+
         return redirect()->route('users.index');
     }
 

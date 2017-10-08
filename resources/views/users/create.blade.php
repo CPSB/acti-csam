@@ -13,7 +13,7 @@
 
                     <div class="panel-body">
 
-                        <form method="POST" action="" class="form-horizontal">
+                        <form method="POST" action="{{ route('users.store') }}" class="form-horizontal">
                             {{ csrf_field() }} {{-- CSRF form field protection --}}
 
                             <div class="form-group @error('name', 'has-error')">
@@ -45,7 +45,7 @@
 
                                 <div class="col-md-6">
                                     <select class="form-control" @input('language')>
-                                        <option valie="">-- Selecteer de gebruiker zijn taal --</option>
+                                        <option value="">-- Selecteer de gebruiker zijn taal --</option>
                                         <option value="nl">Nederlands</option>
                                         <option value="fr">Frans</option>
                                         <option value="en">Engels</option>

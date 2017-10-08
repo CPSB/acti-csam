@@ -26,7 +26,7 @@ class UsersController extends Controller
     public function __construct(UsersRepository $usersRepository)
     {
         $this->middleware('auth');
-        $this->middleware('role:admin|supervisor');
+        $this->middleware('role:admin|supervisor')->except('destroy');
         $this->middleware('forbid-banned-user');
 
         $this->usersRepository = $usersRepository;
@@ -98,15 +98,14 @@ class UsersController extends Controller
             $user->unban();
             flash("{$user->name} is terug geactiveerd in het systeem.")->success();
         }
-        // TODO: Check if the authencated user is the given user. IF yes = abort. (Gate)
-        // TODO: Check if the user is banned or not. if banned == proceed
-        // TODO: Register flash session for information purpose (user is registered as active.)
 
         return redirect()->route('users.index');
     }
 
     /**
      * Delete a user out off the system.
+     *
+     * @todo Implement gate that only a supervisor or the user in question can delete the account
      *
      * @param  integer $userId The primary key from the user in the storage
      * @return \Illuminate\Http\RedirectResponse

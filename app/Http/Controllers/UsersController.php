@@ -4,6 +4,7 @@ namespace ActivismeBE\Http\Controllers;
 
 use ActivismeBE\Http\Requests\UsersValidator;
 use ActivismeBE\Mail\NewUser;
+use ActivismeBE\Mail\UserBlocked;
 use Gate;
 use ActivismeBE\Repositories\{UsersRepository, RoleRepository};
 use Illuminate\Http\RedirectResponse;
@@ -90,6 +91,8 @@ class UsersController extends Controller
         $user->ban(['comment' => $input->reason, 'expired_at' => '+1 week']);
 
         flash("{$user->name} is geblokkeerd voor een week.")->success();
+        Mail::to($user->email)->send(new UserBlocked($user, $input));
+
         return redirect()->route('users.index');
     }
 

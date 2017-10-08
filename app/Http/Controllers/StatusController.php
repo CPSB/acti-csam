@@ -75,9 +75,10 @@ class StatusController extends Controller
     {
         $status = $this->statusRepository->find($statusId) ?: abort(404);
 
-        // TODO: Register ACL gates
-        if ($this->statusRepository->delete($statusId)) {
-            flash("De status {$status->name} is verwijderd uit het systeem.")->success();
+        if (Gate::allows('delete', $status)) {
+            if ($this->statusRepository->delete($statusId)) {
+                flash("De status {$status->name} is verwijderd uit het systeem.")->success();
+            }
         }
 
         return redirect()->back(302);

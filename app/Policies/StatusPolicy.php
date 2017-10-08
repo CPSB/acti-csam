@@ -6,21 +6,16 @@ use ActivismeBE\User;
 use ActivismeBE\Statusses;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * Class StatusPolicy
+ *
+ * @author  Tim Joosten
+ * @license MIT license
+ * @package ActivismeBE\Policies
+ */
 class StatusPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view the statusses.
-     *
-     * @param  \ActivismeBE\User  $user
-     * @param  \ActivismeBE\Statusses  $statusses
-     * @return mixed
-     */
-    public function view(User $user, Statusses $statusses)
-    {
-        //
-    }
 
     /**
      * Determine whether the user can create statusses.
@@ -34,18 +29,6 @@ class StatusPolicy
     }
 
     /**
-     * Determine whether the user can update the statusses.
-     *
-     * @param  \ActivismeBE\User  $user
-     * @param  \ActivismeBE\Statusses  $statusses
-     * @return mixed
-     */
-    public function update(User $user, Statusses $statusses)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can delete the statusses.
      *
      * @param  \ActivismeBE\User  $user
@@ -54,6 +37,6 @@ class StatusPolicy
      */
     public function delete(User $user, Statusses $statusses)
     {
-        //
+        return $user->hasRole('supervisor') || $user->id == $statusses->author_id;
     }
 }

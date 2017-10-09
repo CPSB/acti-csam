@@ -2,10 +2,10 @@
 
 namespace ActivismeBE\Http\Controllers;
 
+use Gate;
 use ActivismeBE\Http\Requests\UsersValidator;
 use ActivismeBE\Mail\NewUser;
 use ActivismeBE\Mail\UserBlocked;
-use Gate;
 use ActivismeBE\Repositories\{UsersRepository, RoleRepository};
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -160,7 +160,9 @@ class UsersController extends Controller
             }
 
             if ($this->usersRepository->delete($userId)) {  // User deleted
-                if ($user->is == auth()->user()->id) auth()->logout();
+                if ($user->is == auth()->user()->id) {
+                    auth()->logout();
+                }
 
                 flash("{$user->name} is verwijderd uit het systeem.")->success();
             }

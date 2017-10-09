@@ -16,7 +16,8 @@ use Illuminate\View\View;
 /**
  * Class UsersController
  *
- * @author
+ * @author  Tim Joosten 
+ * @license MIT License
  * @package ActivismeBE\Http\Controllers
  */
 class UsersController extends Controller
@@ -27,10 +28,17 @@ class UsersController extends Controller
     /**
      * UsersController constructor.
      *
-     * @param UsersRepository $usersRepository Abstraction layer between database and controller.
+     * @todo: LOW:      Refactor the USE statements.
+     * @todo: MEDIUM:   Build up nd register the session repository, model. 
+     * @todo: LOW:      Translate the flash messages for the controller. 
+     * 
+     * @param  UsersRepository $usersRepository Abstraction layer between database and controller.
+     * @param  RoleRepository  $roleRepository  Abstraction layer between database and controller.
+     * @return void
      */
-    public function __construct(UsersRepository $usersRepository, RoleRepository $roleRepository)
-    {
+    public function __construct(
+        UsersRepository $usersRepository, RoleRepository $roleRepository
+    ) {
         $this->middleware('auth');
         $this->middleware('role:supervisor')->except('destroy');
         $this->middleware('forbid-banned-user');
@@ -46,6 +54,9 @@ class UsersController extends Controller
      */
     public function index(): View
     {
+        //! TODO: Need confirmation box. To confirm that user wants to delete his account. 
+        //!       Should only be applie to the account settings interface
+
         return view('users.index', [
             'users' => $this->usersRepository->entity()
         ]);
@@ -155,12 +166,13 @@ class UsersController extends Controller
         $user = $this->usersRepository->find($userId) ?: abort(404);
 
         if (Gate::allows('delete', $user)) {                // Check if the user has the right permissions.
+            // TODO: Need to check if the if statemenr is needed.
             if ($user->isBanned()) {                        // The user is currently banned in the system.
                 $user->unban();                             // Unban in the user in the system before the deletion.
             }
 
             if ($this->usersRepository->delete($userId)) {  // User deleted
-                if ($user->is == auth()->user()->id) {
+                if ($user->is == auth()->user()->id) { // TODO: Refactor to session repository. That communicates with the db table.
                     auth()->logout();
                 }
 

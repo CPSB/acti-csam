@@ -89,7 +89,8 @@ class PriorityController extends Controller
      */
     public function update(PriorityValidator $input, $priorityId): RedirectResponse
     {
-        //
+        dd($input->all()); // Only for debugging propose.
+        return redirect()->back(302);
     }
 
     /**

@@ -58,6 +58,8 @@ class CommentsController extends Controller
             if ($comment = $this->commentsRepository->create($input->except('_token'))) {
                 $ticket->comments()->attach($comment->id);
 
+                // TODO: Register method for notifying the user. When the comment has been storred.
+
                 flash("Uw reactie is toegevoegd aan het ticket.")->success();
                 return redirect()->back(302);
             }

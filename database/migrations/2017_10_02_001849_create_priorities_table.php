@@ -20,7 +20,7 @@ class CreatePrioritiesTable extends Migration
         Schema::create('priorities', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('author_id')->unsigned();
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('author_id')->references('id')->on('users')->ondelete('set null');
             $table->string('color', 10);
             $table->string('name');
             $table->text('description');

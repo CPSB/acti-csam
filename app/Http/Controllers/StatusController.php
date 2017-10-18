@@ -2,6 +2,7 @@
 
 namespace ActivismeBE\Http\Controllers;
 
+use Gate;
 use ActivismeBE\Http\Requests\StatusValidator;
 use ActivismeBE\Repositories\StatusRepository;
 use Illuminate\Http\RedirectResponse;
@@ -51,11 +52,12 @@ class StatusController extends Controller
      */
     public function store(StatusValidator $input): RedirectResponse
     {
-        $input->merge(['author_id' => auth()->user()->id]);
+        if (Gate::allows('create')) {
+            $input->merge(['author_id' => auth()->user()->id]);
 
-        // TODO: Register ACL gates
-        if ($status = $this->statusRepository->create($input->except('_token'))) {
-            flash("De Status {$status->name} is opgeslagen in het systeem.")->success();
+            if ($status = $this->statusRepository->create($input->except('_token'))) {
+                flash("De Status {$status->name} is opgeslagen in het systeem.")->success();
+            }
         }
 
         return redirect()->back(302);
@@ -73,9 +75,10 @@ class StatusController extends Controller
     {
         $status = $this->statusRepository->find($statusId) ?: abort(404);
 
-        // TODO: Register ACL gates
-        if ($this->statusRepository->delete($statusId)) {
-            flash("De status {$status->name} is verwijderd uit het systeem.")->success();
+        if (Gate::allows('delete', $status)) {
+            if ($this->statusRepository->delete($statusId)) {
+                flash("De status {$status->name} is verwijderd uit het systeem.")->success();
+            }
         }
 
         return redirect()->back(302);

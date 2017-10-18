@@ -21,11 +21,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\User[]          $assignee
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Categories[]    $category
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Statusses[]     $status
-<<<<<<< HEAD
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Priorities[]    $priority
-=======
  * @property-read \Illuminate\Database\Eloquent\Collection|\ActivismeBE\Comments[]      $comments
->>>>>>> master
  */
 class SupportDesk extends Model
 {

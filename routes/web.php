@@ -31,6 +31,15 @@ Route::get('priority/delete/{id}',  'PriorityController@delete')->name('priority
 Route::post('priority/update/{id}', 'PriorityController@update')->name('priority.update');
 Route::post('priority/store',       'PriorityController@store')->name('priority.store');
 
+// Users routes
+Route::get('/users',                'UsersController@index')->name('users.index');
+Route::get('/users/json/{id}',      'UsersController@getUserJson')->name('users.json');
+Route::post('/users/block',         'UsersController@block')->name('users.block');
+Route::get('/users/create',         'usersController@create')->name('users.create');
+Route::post('/users/store',         'usersController@store')->name('users.store');
+Route::get('/users/unblock/{id}',   'UsersController@unblock')->name('users.unblock');
+Route::get('/users/delete/{id}',    'UsersController@destroy')->name('users.delete');
+
 // Support desk routes
 Route::get('/support/index',     'SupportdeskController@index')->name('support.index');
 Route::get('/support/show/{id}', 'SupportdeskController@show')->name('support.show');

@@ -26,6 +26,7 @@ class UsersTableseeder extends Seeder
         // Seeding the database table.
         $user = factory(User::class)->create();
 
+        User::find($user->id)->assginRole('admin');
         User::find($user->id)->assignRole('supervisor');
 
         $this->command->info("Email: {$user->email}");

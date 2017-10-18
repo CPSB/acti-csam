@@ -19,8 +19,8 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id')->unsigned();
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->integer('author_id')->unsigned()->nullable();
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
             $table->string('color', 10);
             $table->string('module');
             $table->string('name');

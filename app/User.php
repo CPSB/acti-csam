@@ -5,6 +5,7 @@ namespace ActivismeBE;
 use Cog\Laravel\Ban\Traits\Bannable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Cog\Contracts\Ban\Bannable as BannableContract;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -19,7 +20,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property \Carbon\Carbon     $created_at         The timestamp when the user is created.
  * @property \Carbon\Carbon     $updated_at         The timestamp when the user is last updated.
  */
-class User extends Authenticatable
+class User extends Authenticatable implements BannableContract
 {
     use Notifiable, HasRoles, Bannable;
 
